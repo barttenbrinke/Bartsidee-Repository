@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+   <window type="window" id="14000">
+   <defaultcontrol always="true">51</defaultcontrol>
+   <allowoverlay>no</allowoverlay>
+   <onload lang="python"><![CDATA[
+import mc
+from libs import app
+
+params = mc.GetApp().GetLaunchedWindowParameters()
+try:
+	if params['noreload'] != "1":
+		app.init()
+except:
+	app.init()
+]]></onload>
+   <controls>
+   	<include>Common_Background</include>
+   	<include>Common_Status</include>
+	<control type="image">
+		<visible></visible>
+		<posx>40</posx>
+		<posy>40</posy>
+		<width>54</width>
+		<height>70</height>
+		<texture>logo.png</texture>
+	</control>
+	<control type="label" id="30">
+        <posx>104</posx>
+        <posy>40</posy>
+        <width>1100</width>
+        <height>56</height>
+        <align>left</align>
+    	<aligny>center</aligny>
+   		<haspath>true</haspath>
+    	<font>title32b</font>
+    	<textcolor>white</textcolor>
+        <label>Gamejournaal</label>
+	</control>
+   <control type="group" id="1200">
+        <animation type="Conditional" condition="Window.IsVisible(DialogProgress.xml)">
+	        <effect type="fade" start="100" end="20" time="200"/>
+        </animation>
+		<control type="panel" id="51">
+			<include>BrowseListAnimation</include>
+			<preloaditems>2</preloaditems>
+			<posx>26</posx>
+			<posy>136</posy>
+			<width>600</width>
+			<height>584</height>
+			<onleft>-</onleft>
+			<onright>-</onright>
+			<onup>-</onup>
+			<ondown>-</ondown>
+			<scrolltime>400</scrolltime>
+			<pagecontrol>60</pagecontrol>
+			<orientation>vertical</orientation>
+			<offsetx>4</offsetx>
+			<offsety>4</offsety>
+			<itemlayout width="600" height="108">
+				<control type="image" platformClass="pc">
+					<posx>0</posx>
+					<posy>46</posy>
+					<width>600</width>
+					<height>112</height>
+					<texture>home_line_horizontal_left.png</texture>
+				</control>
+				<include>BrowseThumbSquareSmallThumbUnfocus</include>
+				<control type="label">
+					<posx>116</posx>
+					<posy>14</posy>
+					<width>450</width>
+					<height>24</height>
+					<font>font22b</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>$INFO[ListItem.property(custom:titel)]</label>
+					<textcolor>yellow</textcolor>
+				</control>
+				<control type="label">
+					<posx>116</posx>
+					<posy>42</posy>
+					<width>450</width>
+					<height>24</height>
+					<font>font22</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>$INFO[ListItem.property(custom:subtitel)]</label>
+					<textcolor>grey</textcolor>
+				</control>
+			</itemlayout>
+			<focusedlayout width="600" height="108">
+				<control type="image" platformClass="pc">
+					<posx>0</posx>
+					<posy>46</posy>
+					<width>600</width>
+					<height>112</height>
+					<texture>home_line_horizontal_left.png</texture>
+				</control>
+				<control type="image">
+					<posx>0</posx>
+					<posy>-16</posy>
+					<width>600</width>
+					<height>128</height>
+					<texture border="30">line_view_on.png</texture>
+				</control>
+				<include>BrowseThumbSquareSmallThumbUnfocus</include>
+				<control type="label">
+					<posx>116</posx>
+					<posy>14</posy>
+					<width>450</width>
+					<height>24</height>
+					<font>title22b</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>$INFO[ListItem.property(custom:titel)]</label>
+					<textcolor>yellow</textcolor>
+				</control>
+				<control type="label">
+					<posx>116</posx>
+					<posy>42</posy>
+					<width>450</width>
+					<height>24</height>
+					<font>font22</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>$INFO[ListItem.property(custom:subtitel)]</label>
+					<textcolor>white</textcolor>
+				</control>
+			</focusedlayout>
+			<content type="url" url="">
+			</content>
+		</control>
+
+        <control type="group">
+           <control type="label">
+              <visible>true</visible>
+              <posx>670</posx>
+              <posy>120</posy>
+              <width>560</width>
+              <height>200</height>
+              <font>font24b</font>
+              <align>left</align>
+              <aligny>top</aligny>
+              <label>$INFO[Container(51).ListItem.Label]</label>
+              <background>grey</background>
+              <textcolor>yellow</textcolor>
+              <wrapmultiline>true</wrapmultiline>
+           </control>
+           <control type="label">
+              <visible>true</visible>
+              <posx>670</posx>
+              <posy>170</posy>
+              <width>560</width>
+              <height>200</height>
+              <font>font22</font>
+              <align>left</align>
+              <aligny>top</aligny>
+              <label>$INFO[Container(51).ListItem.property(description)]</label>
+              <background>grey</background>
+              <textcolor>white</textcolor>
+              <wrapmultiline>true</wrapmultiline>
+           </control>
+           <control type="image" platformClass="pc">
+              <posx>605</posx>
+              <posy>100</posy>
+              <width>67</width>
+              <height>680</height>
+              <texture>home_line_vertical.png</texture>
+              <colordiffuse>80FFFFFF</colordiffuse>
+              </control>
+         </control>
+
+      </control>
+   </controls>
+</window>

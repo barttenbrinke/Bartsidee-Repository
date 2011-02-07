@@ -1,0 +1,17 @@
+	<app>
+		<id>com.bart.uzg</id>
+		<name>Uitzending Gemist</name>
+		<version>0.2</version>
+		<description>Bekijk de live streams van Nederland 24</description>
+		<thumb>http://www.bartsidee.nl/boxee/apps/uzg/thumb.png</thumb>
+		<repositoryid>com.bart</repositoryid>
+		<repository>http://www.bartsidee.nl/boxee</repository>
+		<media>video</media>
+		<copyright>bartsidee</copyright>
+		<email>bartsidee@gmail.com</email>
+		<type>skin</type>
+		<startWindow>14000</startWindow>
+		<platform>all</platform>
+		<minversion>0.9.14</minversion>
+	</app>
+	

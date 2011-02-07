@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+<window type="window" id="14000">
+	<defaultcontrol always="true">51</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<onload lang="python">
+<![CDATA[
+from libs import app
+app.clean()
+app.ShowDay("vandaag")
+]]>
+	</onload> 
+	<controls>
+		<include>Common_Background</include>
+		<include>Common_Status</include>
+		
+		<control type="image">
+             <posx>0</posx>
+             <posy>0</posy>
+             <width>1280</width>
+             <height>720</height>
+             <texture>background-rtl.png</texture>
+        </control>
+		
+		<control type="button" id="10101">
+			<posx>80</posx>
+			<posy>180</posy>
+			<width>256</width>
+			<height>50</height>
+			<label>MAANDAG</label>
+			<font>font24b</font>
+			<textoffsetx>25</textoffsetx>
+			<textoffsety>8</textoffsety>
+			<texturenofocus>button.png</texturenofocus>
+			<texturefocus>buttonfoc.png</texturefocus>
+			<onclick lang="python">
+<![CDATA[
+from libs import app
+app.ShowDay(1)
+]]>
+			</onclick>
+			<onright>1200</onright>
+			<onup>10107</onup>
+			<ondown>10102</ondown>
+		</control>
+		
+		<control type="button" id="10102">
+			<posx>80</posx>
+			<posy>240</posy>
+			<width>256</width>
+			<height>50</height>
+			<label>DINSDAG</label>
+			<font>font24b</font>
+			<textoffsetx>25</textoffsetx>
+			<textoffsety>8</textoffsety>
+			<texturenofocus>button.png</texturenofocus>
+			<texturefocus>buttonfoc.png</texturefocus>
+			<onclick lang="python">
+<![CDATA[
+from libs import app
+app.ShowDay(2)
+]]>
+			</onclick>
+			<onright>1200</onright>
+			<onup>10101</onup>
+			<ondown>10103</ondown>
+		</control>
+
+		<control type="button" id="10103">
+			<posx>80</posx>
+			<posy>300</posy>
+			<width>256</width>
+			<height>50</height>
+			<label>WOENSDAG</label>
+			<font>font24b</font>
+			<textoffsetx>25</textoffsetx>
+			<textoffsety>8</textoffsety>
+			<texturenofocus>button.png</texturenofocus>
+			<texturefocus>buttonfoc.png</texturefocus>
+			<onclick lang="python">
+<![CDATA[
+from libs import app
+app.ShowDay(3)
+]]>
+			</onclick>
+			<onright>1200</onright>
+			<onup>10102</onup>
+			<ondown>10104</ondown>
+		</control>
+
+		<control type="button" id="10104">
+			<posx>80</posx>
+			<posy>360</posy>
+			<width>256</width>
+			<height>50</height>
+			<label>DONDERDAG</label>
+			<font>font24b</font>
+			<textoffsetx>25</textoffsetx>
+			<textoffsety>8</textoffsety>
+			<texturenofocus>button.png</texturenofocus>
+			<texturefocus>buttonfoc.png</texturefocus>
+			<onclick lang="python">
+<![CDATA[
+from libs import app
+app.ShowDay(4)
+]]>
+			</onclick>
+			<onright>1200</onright>
+			<onup>10103</onup>
+			<ondown>10105</ondown>
+		</control>
+
+		<control type="button" id="10105">
+			<posx>80</posx>
+			<posy>420</posy>
+			<width>256</width>
+			<height>50</height>
+			<label>VRIJDAG</label>
+			<font>font24b</font>
+			<textoffsetx>25</textoffsetx>
+			<textoffsety>8</textoffsety>
+			<texturenofocus>button.png</texturenofocus>
+			<texturefocus>buttonfoc.png</texturefocus>
+			<onclick lang="python">
+<![CDATA[
+from libs import app
+app.ShowDay(5)
+]]>
+			</onclick>
+			<onright>1200</onright>
+			<onup>10104</onup>
+			<ondown>10106</ondown>
+		</control>
+
+		<control type="button" id="10106">
+			<posx>80</posx>
+			<posy>480</posy>
+			<width>256</width>
+			<height>50</height>
+			<label>ZATERDAG</label>
+			<font>font24b</font>
+			<textoffsetx>25</textoffsetx>
+			<textoffsety>8</textoffsety>
+			<texturenofocus>button.png</texturenofocus>
+			<texturefocus>buttonfoc.png</texturefocus>
+			<onclick lang="python">
+<![CDATA[
+from libs import app
+app.ShowDay(6)
+]]>
+			</onclick>
+			<onright>1200</onright>
+			<onup>10105</onup>
+			<ondown>10107</ondown>
+		</control>
+
+		<control type="button" id="10107">
+			<posx>80</posx>
+			<posy>540</posy>
+			<width>256</width>
+			<height>50</height>
+			<label>ZONDAG</label>
+			<font>font24b</font>
+			<textoffsetx>25</textoffsetx>
+			<textoffsety>8</textoffsety>
+			<texturenofocus>button.png</texturenofocus>
+			<texturefocus>buttonfoc.png</texturefocus>
+			<onclick lang="python">
+<![CDATA[
+from libs import app
+app.ShowDay(7)
+]]>
+			</onclick>
+			<onright>1200</onright>
+			<onup>10106</onup>
+			<ondown>10101</ondown>
+		</control>
+	
+	   <control type="group" id="1200">
+			<animation type="Conditional" condition="Window.IsVisible(DialogProgress.xml)">
+				<effect type="fade" start="100" end="20" time="200"/>
+			</animation>
+			
+			<control type="panel" id="51">
+				<include>BrowseListAnimation</include>
+				<preloaditems>2</preloaditems>
+				<posx>460</posx>
+				<posy>170</posy>
+				<width>700</width>
+				<height>480</height>
+				<onleft>10101</onleft>
+				<onright>10101</onright>
+				<onup>-</onup>
+				<ondown>-</ondown>
+				<scrolltime>400</scrolltime>
+				<pagecontrol>60</pagecontrol>
+				<orientation>vertical</orientation>
+				<offsetx>4</offsetx>
+				<offsety>4</offsety>
+				
+				<itemlayout width="690" height="145">
+					<control type="image">
+						<visible>!IsEmpty(ListItem.Thumb)</visible>
+						<posx>14</posx>
+						<posy>8</posy>
+						<width>185</width>
+						<height>126</height>
+						<texture blend="false">$INFO[ListItem.Thumb]</texture>
+						<aspectratio>scale</aspectratio>
+					</control>
+					
+					<control type="label">
+						<posx>215</posx>
+						<posy>17</posy>
+						<width>550</width>
+						<height>24</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>grey</textcolor>
+					</control>
+					
+					<control type="label">
+						<posx>215</posx>
+						<posy>50</posy>
+						<width>450</width>
+						<height>24</height>
+						<font>font20</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.property(Description)]</label>
+						<textcolor>grey</textcolor>
+					</control>
+				</itemlayout>
+				<focusedlayout width="690" height="145">
+					<control type="image">
+						<visible>!IsEmpty(ListItem.Thumb)</visible>
+						<posx>10</posx>
+						<posy>0</posy>
+						<width>194</width>
+						<height>140</height>
+						<texture blend="false">$INFO[ListItem.Thumb]</texture>
+						<aspectratio>scale</aspectratio>
+					</control>
+					<control type="label">
+						<posx>215</posx>
+						<posy>17</posy>
+						<width>450</width>
+						<height>24</height>
+						<font>font24b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+					</control>
+					<control type="label">
+						<posx>215</posx>
+						<posy>50</posy>
+						<width>550</width>
+						<height>24</height>
+						<font>font23</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.property(description)]</label>
+						<textcolor>white</textcolor>
+					</control>
+				</focusedlayout>
+				<content type="url" url="">
+				</content>
+			</control>
+		</control>
+	</controls>
+</window>

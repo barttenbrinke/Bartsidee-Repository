@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<window type="window" id="14445">
+	<defaultcontrol always="true">51</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<onload lang="python">
+<![CDATA[
+import mc
+from libs import app
+
+obj = app.Sabnzbd()
+window = mc.GetWindow(14445)
+]]>
+	</onload>
+	<controls>
+		<include>Common_Background</include>
+		<include>Common_Status</include>
+		<control type="image">
+                     <posx>0</posx>
+                     <posy>0</posy>
+                     <width>1280</width>
+                     <height>720</height>
+                     <texture>background-search.png</texture>
+                </control>
+		<control type="button" id="10101">
+			<posx>79</posx>
+			<posy>38</posy>
+			<width>251</width>
+			<height>90</height>
+			<label></label>
+			<texturenofocus>transparant.png</texturenofocus>
+			<texturefocus>focusbtn.png</texturefocus>
+			<onclick lang="python">
+<![CDATA[
+mc.ActivateWindow(14444)
+]]>
+			</onclick>
+			<onright>10102</onright>
+			<onleft>10101</onleft>
+			<ondown>153</ondown>
+		</control>
+
+		<control type="button" id="10102">
+			<posx>306</posx>
+			<posy>38</posy>
+			<width>251</width>
+			<height>90</height>
+			<label></label>
+			<texturenofocus>transparant.png</texturenofocus>
+			<texturefocus>focusbtn.png</texturefocus>
+			<onclick lang="python">
+<![CDATA[
+mc.ActivateWindow(14445)
+]]>
+			</onclick>
+			<onright>-</onright>
+			<onleft>10101</onleft>
+			<ondown>153</ondown>
+		</control>
+			<control type="edit" id="153">
+                <posx>100</posx>
+                <posy>165</posy>
+                <width>521</width>
+                <height>69</height>
+                <onright>-</onright>
+                <onleft>-</onleft>
+                <ondown>51</ondown>
+                <onup>10101</onup>
+				<label>-</label>
+				<textoffsetx>35</textoffsetx>
+				<align>left</align>
+				<aligny>center</aligny>
+				<selectedcolor>black</selectedcolor>
+				<textcolor>black</textcolor>
+				<disabledcolor>darkgrey</disabledcolor>
+				<font>font24b</font>
+                <texturefocus border="5">field_on.png</texturefocus>
+                <texturenofocus border="5">field_off.png</texturenofocus>
+				<aspectratio>stretch</aspectratio>
+				<ontextchange lang="python">
+<![CDATA[
+search = window.GetEdit(153).GetText()
+if len(search) > 0:
+	window.GetLabel(1202).SetVisible(False)
+else:
+	window.GetLabel(1202).SetVisible(True)
+
+if len(search) > 1:
+	obj.SearchNzb(search)
+else:
+	list = window.GetList(51)
+	list_items = mc.ListItems()
+	del list_items[:]
+	list.SetItems(list_items)
+]]>
+				</ontextchange>
+				<onclick lang="python">
+<![CDATA[
+search = mc.ShowDialogKeyboard("NZB Zoeken", window.GetEdit(153).GetText(), False)
+if search:
+    window.GetEdit(153).SetText(search)
+    obj.SearchNzb(search)
+]]>
+				</onclick>
+			</control>
+			<control type="label" id="1202">
+				<animation type="Visible">
+					<effect type="fade" time="100"/>
+				</animation>
+				<posx>94</posx>
+				<posy>179</posy>
+				<width>300</width>
+				<height>41</height>
+				<label>Start typing here...</label>
+				<align>center</align>
+				<aligny>center</aligny>
+				<font>font24b</font>
+				<textcolor>ff999999</textcolor>
+			</control>			
+
+		<control type="group" id="1200">
+			<animation type="Conditional" condition="Window.IsVisible(DialogProgress.xml)">
+				<effect type="fade" start="100" end="20" time="200"/>
+			</animation>
+
+			<control type="panel" id="51">
+				<include>BrowseListAnimation</include>
+				<preloaditems>2</preloaditems>
+				<posx>120</posx>
+				<posy>255</posy>
+				<width>1150</width>
+				<height>400</height>
+				<onleft>153</onleft>
+				<onright>153</onright>
+				<onup>153</onup>
+				<ondown>153</ondown>
+				<scrolltime>400</scrolltime>
+				<pagecontrol>60</pagecontrol>
+				<orientation>vertical</orientation>
+				<offsetx>4</offsetx>
+				<offsety>4</offsety>
+
+				<itemlayout width="1030" height="60">
+					<control type="label">
+						<posx>20</posx>
+						<posy>5</posy>
+						<width>750</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>black</textcolor>
+					</control>
+                                        <control type="label">
+						<posx>20</posx>
+						<posy>33</posy>
+						<width>870</width>
+						<height>20</height>
+						<font>font15b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.property(custom:info)]</label>
+						<textcolor>darkgrey</textcolor>
+					</control>
+                                        <control type="label">
+						<posx>870</posx>
+						<posy>5</posy>
+						<width>160</width>
+						<height>26</height>
+						<font>font18</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.property(custom:date)]</label>
+						<textcolor>black</textcolor>
+					</control>
+				</itemlayout>
+
+				<focusedlayout width="1030" height="60">
+                                        <control type="image">
+                                            <posx>0</posx>
+                                            <posy>5</posy>
+                                            <width>1030</width>
+                                            <height>60</height>
+                                            <texture>focusrow.png</texture>
+                                            <aspectratio>stretch</aspectratio>
+                                        </control>
+
+					<control type="label">
+						<posx>20</posx>
+						<posy>5</posy>
+						<width>750</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>black</textcolor>
+					</control>
+                                        <control type="label">
+						<posx>20</posx>
+						<posy>33</posy>
+						<width>870</width>
+						<height>20</height>
+						<font>font15b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.property(custom:info)]</label>
+						<textcolor>darkgrey</textcolor>
+					</control>
+                                        <control type="label">
+						<posx>870</posx>
+						<posy>5</posy>
+						<width>160</width>
+						<height>26</height>
+						<font>font18</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.property(custom:date)]</label>
+						<textcolor>black</textcolor>
+					</control>
+				</focusedlayout>
+
+				<content type="url" url="">
+					<onclick lang="python">
+<![CDATA[
+list = window.GetList(51)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+search = window.GetEdit(153).GetText()
+
+mc.GetApp().GetLocalConfig().SetValue("nzb_name", str(search))
+mc.GetApp().GetLocalConfig().SetValue("nzb_url", str(listitem.GetPath()))
+mc.ActivateWindow(15000)
+]]>
+					</onclick>
+				</content>
+			</control>
+                </control>
+	</controls>
+</window>

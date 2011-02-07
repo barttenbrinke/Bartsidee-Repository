@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<window type="window" id="14000">
+	<defaultcontrol always="true">51</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<onload lang="python">
+<![CDATA[
+from libs import app
+app.Show()
+]]>
+	</onload> 
+	<controls>
+		<include>Common_Background</include>
+		<include>Common_Status</include>
+		
+                <control type="image">
+                     <posx>0</posx>
+                     <posy>0</posy>
+                     <width>1280</width>
+                     <height>720</height>
+                     <texture>background-nu.png</texture>
+                </control>
+	   	
+		<control type="group" id="1200">
+			<animation type="Conditional" condition="Window.IsVisible(DialogProgress.xml)">
+				<effect type="fade" start="100" end="20" time="200"/>
+			</animation>
+			
+			<control type="panel" id="51">
+				<include>BrowseListAnimation</include>
+				<preloaditems>2</preloaditems>
+				<posx>120</posx>
+				<posy>174</posy>
+				<width>1065</width>
+				<height>480</height>
+				<onleft>10101</onleft>
+				<onright>52</onright>
+				<onup>-</onup>
+				<ondown>-</ondown>
+				<scrolltime>400</scrolltime>
+				<pagecontrol>60</pagecontrol>
+				<orientation>vertical</orientation>
+				<offsetx>4</offsetx>
+				<offsety>4</offsety>
+				
+				<itemlayout width="990" height="120">
+                                    	<control type="image">
+						 <posx>0</posx>
+						 <posy>5</posy>
+						 <width>110</width>
+						 <height>110</height>
+						 <texture>$INFO[ListItem.Thumb]</texture>
+					</control>
+					<control type="label">
+						<posx>125</posx>
+						<posy>3</posy>
+						<width>750</width>
+						<height>26</height>
+						<font>font24</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>darkgrey</textcolor>
+					</control>
+				</itemlayout>
+				
+				<focusedlayout width="990" height="120">
+                  
+                                    	<control type="image">
+						 <posx>0</posx>
+						 <posy>5</posy>
+						 <width>110</width>
+						 <height>110</height>
+						 <texture>$INFO[ListItem.Thumb]</texture>
+					</control>
+					<control type="image">
+						 <posx>120</posx>
+						 <posy>0</posy>
+						 <width>900</width>
+						 <height>35</height>
+						 <texture>focusrow.png</texture>
+					</control>
+					<control type="label">
+						<posx>125</posx>
+						<posy>3</posy>
+						<width>750</width>
+						<height>26</height>
+						<font>font24</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>black</textcolor>
+					</control>
+					                      <control type="label">
+						<posx>840</posx>
+						<posy>5</posy>
+						<width>165</width>
+						<height>100</height>
+						<font>font14</font>
+						<align>left</align>
+						<aligny>top</aligny>
+						<label>$INFO[ListItem.property(custom:time)]</label>
+						<textcolor>darkgrey</textcolor>
+                                                <wrapmultiline>false</wrapmultiline>
+					</control>
+   
+                                        <control type="label">
+						<posx>125</posx>
+						<posy>35</posy>
+						<width>850</width>
+						<height>80</height>
+						<font>font20</font>
+						<align>left</align>
+						<aligny>top</aligny>
+						<label>$INFO[ListItem.property(custom:desc)]</label>
+						<textcolor>darkgrey</textcolor>
+                                                <wrapmultiline>true</wrapmultiline>
+					</control>
+				</focusedlayout>
+			</control>
+			
+		</control>
+		
+	</controls>
+</window>

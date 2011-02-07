@@ -1,0 +1,16 @@
+	<app>
+		<id>com.bart.nu</id>
+		<name>NU.nl</name>
+		<version>0.6</version>
+		<description>Bekijk het laatste nieuws van nu.nl</description>
+		<thumb>http://www.bartsidee.nl/boxee/apps/nu/thumb.png</thumb>
+		<repositoryid>com.bart</repositoryid>
+		<repository>http://www.bartsidee.nl/boxee</repository>
+		<media>pictures</media>
+		<copyright>bartsidee</copyright>
+		<email>bartsidee@gmail.com</email>
+		<type>skin</type>
+		<startWindow>14000</startWindow>
+		<platform>all</platform>
+		<minversion>0.9.14</minversion>
+	</app>

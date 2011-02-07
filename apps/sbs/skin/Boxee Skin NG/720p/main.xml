@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<window type="window" id="14000">
+	<defaultcontrol always="true">51</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<onload lang="python">
+<![CDATA[
+import mc
+from libs import app
+app.ShowNet(1)
+control = mc.GetWindow(14000).GetControl(30)
+control.SetVisible(True)
+control = mc.GetWindow(14000).GetControl(31)
+control.SetVisible(True)
+]]>
+	</onload> 
+	<controls>
+		<include>Common_Background</include>
+		<include>Common_Status</include>
+		<control type="image">
+             <posx>0</posx>
+             <posy>0</posy>
+             <width>1280</width>
+             <height>720</height>
+             <texture>background-$INFO[Container(51).ListItem.property(custom:zender)].png</texture>
+        </control>
+		
+		<control type="label" id="30">
+			<visible>False</visible>
+			<posx>100</posx>
+			<posy>150</posy>
+			<align>left</align>
+			<aligny>center</aligny>
+			<font>title15b</font>
+			<textcolor>grey</textcolor>
+			<label>PROGRAMMA:</label>
+		</control>
+		
+		<control type="label" id="31">
+			<visible>False</visible>
+			<posx>710</posx>
+			<posy>150</posy>
+			<align>left</align>
+			<aligny>center</aligny>
+			<font>title15b</font>
+			<textcolor>grey</textcolor>
+			<label>UITZENDING:</label>
+		</control>
+		
+		<control type="button" id="10101">
+			<posx>101</posx>
+			<posy>42</posy>
+			<width>210</width>
+			<height>81</height>
+			<label></label>
+			<texturenofocus>transparant.png</texturenofocus>
+			<texturefocus>focusbtn.png</texturefocus>
+			<onclick lang="python">
+<![CDATA[
+from libs import app
+app.EmptyEpisode()
+app.ShowNet(1)
+]]>
+			</onclick>
+			<onright>10102</onright>
+			<onleft>10101</onleft>
+			<ondown>51</ondown>
+		</control>
+		
+		<control type="button" id="10102">
+			<posx>329</posx>
+			<posy>42</posy>
+			<width>210</width>
+			<height>81</height>
+			<label></label>
+			<texturenofocus>transparant.png</texturenofocus>
+			<texturefocus>focusbtn.png</texturefocus>
+			<onclick lang="python">
+<![CDATA[
+from libs import app
+app.EmptyEpisode()
+app.ShowNet(2)
+]]>
+			</onclick>
+			<onright>10103</onright>
+			<onleft>10101</onleft>
+			<ondown>51</ondown>
+		</control>
+
+		<control type="button" id="10103">
+			<posx>560</posx>
+			<posy>42</posy>
+			<width>210</width>
+			<height>81</height>
+			<label></label>
+			<texturenofocus>transparant.png</texturenofocus>
+			<texturefocus>focusbtn.png</texturefocus>
+			<onclick lang="python">
+<![CDATA[
+from libs import app
+app.EmptyEpisode()
+app.ShowNet(3)
+]]>
+			</onclick>
+			<onright>10103</onright>
+			<onleft>10102</onleft>
+			<ondown>51</ondown>
+		</control>						
+			
+		<control type="group" id="1200">
+			<animation type="Conditional" condition="Window.IsVisible(DialogProgress.xml)">
+				<effect type="fade" start="100" end="20" time="200"/>
+			</animation>
+			
+			<control type="panel" id="51">
+				<include>BrowseListAnimation</include>
+				<preloaditems>2</preloaditems>
+				<posx>90</posx>
+				<posy>170</posy>
+				<width>550</width>
+				<height>485</height>
+				<onleft>10101</onleft>
+				<onright>52</onright>
+				<onup>-</onup>
+				<ondown>-</ondown>
+				<scrolltime>400</scrolltime>
+				<pagecontrol>60</pagecontrol>
+				<orientation>vertical</orientation>
+				<offsetx>4</offsetx>
+				<offsety>4</offsety>
+				
+				<itemlayout width="535" height="50">
+					<control type="label">
+						<posx>5</posx>
+						<posy>17</posy>
+						<width>520</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>grey</textcolor>
+					</control>
+				</itemlayout>
+				
+				<focusedlayout width="535" height="50">
+					<control type="image">
+						 <posx>0</posx>
+						 <posy>10</posy>
+						 <width>525</width>
+						 <height>50</height>
+						 <texture>focusrow.png</texture>
+					</control>
+					<control type="label">
+						<posx>5</posx>
+						<posy>17</posy>
+						<width>520</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+					</control>
+				</focusedlayout>
+				
+				<content type="url" url="">
+					<onclick lang="python">
+<![CDATA[
+from libs import app
+
+list = mc.GetWindow(14000).GetList(51)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+app.ShowEpisode(str(listitem.GetPath()))
+]]>
+					</onclick>
+				</content>
+			</control>
+			
+			<control type="panel" id="52">
+				<include>BrowseListAnimation</include>
+				<preloaditems>2</preloaditems>
+				<posx>740</posx>
+				<posy>170</posy>
+				<width>450</width>
+				<height>485</height>
+				<onleft>51</onleft>
+				<onright>52</onright>
+				<onup>-</onup>
+				<ondown>-</ondown>
+				<scrolltime>400</scrolltime>
+				<pagecontrol>60</pagecontrol>
+				<orientation>vertical</orientation>
+				<offsetx>4</offsetx>
+				<offsety>4</offsety>
+				
+				<itemlayout width="450" height="135">
+					<control type="image">
+						<posx>5</posx>
+						<posy>17</posy>
+						<width>215</width>
+						<height>120</height>
+						<texture>$INFO[ListItem.Thumb]</texture>
+					</control>
+					<control type="label">
+						<posx>230</posx>
+						<posy>17</posy>
+						<width>200</width>
+						<height>26</height>
+						<font>font25</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+					</control>
+				</itemlayout>
+				
+				<focusedlayout width="450" height="90">
+					<control type="image">
+						<posx>0</posx>
+						<posy>17</posy>
+						<width>235</width>
+						<height>130</height>
+						<texture>$INFO[ListItem.Thumb]</texture>
+					</control>
+					<control type="label">
+						<posx>250</posx>
+						<posy>17</posy>
+						<width>200</width>
+						<height>26</height>
+						<font>font22</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+					</control>
+				</focusedlayout>
+				
+				<content type="url" url="">
+					<onclick lang="python">
+<![CDATA[
+from libs import app
+
+list = mc.GetWindow(14000).GetList(52)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+app.ShowPlay(str(listitem.GetPath()))
+]]>
+					</onclick>
+				</content>
+			</control>
+		</control>
+		
+	</controls>
+</window>

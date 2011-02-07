@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+   <window type="window" id="14000">
+   <defaultcontrol always="true">51</defaultcontrol>
+   <allowoverlay>no</allowoverlay>
+   <onload lang="python"><![CDATA[
+from resources.lib import uzg
+uzg.doLoad()
+]]></onload>
+   <controls>
+   	<include>Common_Background</include>
+   	<include>Common_Status</include>
+	<control type="label" id="30">
+        <posx>54</posx>
+        <posy>35</posy>
+        <width>1100</width>
+        <height>56</height>
+        <align>left</align>
+    	<aligny>center</aligny>
+   		<haspath>true</haspath>
+    	<font>title32b</font>
+    	<textcolor>white</textcolor>
+        <label>$INFO[Container(51).ListItem.property(custom:title)]</label>
+	</control>
+	<control type="label" id="31">
+        <posx>54</posx>
+        <posy>70</posy>
+        <width>1100</width>
+    	<height>56</height>
+        <align>left</align>
+        <aligny>center</aligny>
+        <haspath>true</haspath>
+        <font>title28</font>
+        <textcolor>white</textcolor>
+        <label>$INFO[Container(51).ListItem.property(custom:subtitle)]</label>
+	</control>
+   <control type="group" id="1200">
+        <animation type="Conditional" condition="Window.IsVisible(DialogProgress.xml)">
+	        <effect type="fade" start="100" end="20" time="200"/>
+        </animation>
+		<control type="list" id="51">
+			<include>BrowseListAnimation</include>
+			<preloaditems>2</preloaditems>
+			<posx>26</posx>
+			<posy>140</posy>
+			<width>452</width>
+			<height>528</height>
+			<onleft>8000</onleft>
+			<onright>7000</onright>
+			<onup>6000</onup>
+			<ondown>1000</ondown>
+			<scrolltime>200</scrolltime>
+			<pagecontrol>60</pagecontrol>
+			<orientation>vertical</orientation>
+			<focusposition>6</focusposition>
+			<offsety>4</offsety>
+			<itemlayout height="40">
+				<control type="label">
+					<posx>36</posx>
+					<posy>0</posy>
+					<width>380</width>
+					<height>40</height>
+					<font>font22</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<info>ListItem.Label</info>
+					<textcolor>grey</textcolor>
+					<selectedcolor>grey</selectedcolor>
+				</control>
+			</itemlayout>
+			<focusedlayout height="40">
+				<control type="image">
+					<visible>Control.HasFocus(51)</visible>
+					<posx>0</posx>
+					<posy>-19</posy>
+					<width>452</width>
+					<height>78</height>
+					<texture border="39">line_view_on.png</texture>
+				</control>
+					<control type="label">
+						<posx>36</posx>
+						<posy>0</posy>
+						<width>380</width>
+						<height>40</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<info>ListItem.Label</info>
+						<textcolor>white</textcolor>
+						<selectedcolor>white</selectedcolor>
+					</control>
+			</focusedlayout>
+			<content type="url" url="">
+			<onclick lang="python"><![CDATA[
+from resources.lib import uzg
+
+list = mc.GetWindow(14000).GetList(51)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+uzg.doAction(str(listitem.GetPath()), str(listitem.GetLabel()),  str(listitem.GetProperty('title')),  str(listitem.GetProperty('subtitle')))
+]]></onclick>
+			</content>
+		</control>
+
+        <control type="group">
+           <control type="image">
+              <visible>true</visible>
+              <posx>670</posx>
+              <posy>100</posy>
+              <width>450</width>
+              <height>200</height>
+              <texture>$INFO[Container(51).ListItem.Thumb]</texture>
+          <aspectratio aligny="bottom">keep</aspectratio>
+           </control>
+           <control type="label">
+              <visible>true</visible>
+              <posx>670</posx>
+              <posy>330</posy>
+              <width>560</width>
+              <height>200</height>
+              <font>font22</font>
+              <align>left</align>
+              <aligny>top</aligny>
+              <label>$INFO[Container(51).ListItem.property(description)]</label>
+              <background>grey</background>
+              <textcolor>white</textcolor>
+              <wrapmultiline>true</wrapmultiline>
+	      <visible>!IsEmpty(Container(51).ListItem.Thumb)</visible>
+           </control>
+           <control type="label">
+              <visible>true</visible>
+              <posx>670</posx>
+              <posy>120</posy>
+              <width>560</width>
+              <height>200</height>
+              <font>font22</font>
+              <align>left</align>
+              <aligny>top</aligny>
+              <label>$INFO[Container(51).ListItem.property(description)]</label>
+              <background>grey</background>
+              <textcolor>white</textcolor>
+              <wrapmultiline>true</wrapmultiline>
+	      <visible>IsEmpty(Container(51).ListItem.Thumb)</visible>
+           </control>
+           <control type="image" platformClass="pc">
+              <posx>605</posx>
+              <posy>100</posy>
+              <width>67</width>
+              <height>680</height>
+              <texture>home_line_vertical.png</texture>
+              <colordiffuse>80FFFFFF</colordiffuse>
+              </control>
+         </control>
+
+      </control>
+   </controls>
+</window>

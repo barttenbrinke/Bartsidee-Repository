@@ -1,0 +1,813 @@
+<!-- Bartsidee Repo - TV Skin App revision: 100 -->
+<?xml version="1.0"?>
+<window type="window" id="14444">
+	<defaultcontrol always="true">10101</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<onload lang="python">
+<![CDATA[
+import mc
+from libs import main, ba
+window = mc.GetWindow(14444)
+config = mc.GetApp().GetLocalConfig()
+index = 0
+
+window.GetToggleButton(10101).SetSelected(True)
+
+main_obj = main.main_obj()
+main_obj.Search_DB_Update(86400)
+
+if window.GetControl(1200).IsVisible():
+	window.GetControl(1200).SetVisible(True)
+	window.GetControl(1300).SetVisible(False)
+	window.GetControl(1400).SetVisible(False)
+]]>
+	</onload> 
+	<controls>
+		<!-- Background -->
+		<control type="image">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
+            <texture>wallpaper.jpg</texture>
+        </control>
+		<control type="image">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
+            <texture>background.png</texture>
+        </control>
+		
+		<!-- Top Select -->
+		<control type="group" id="1100">
+				<control type="image">
+					<posx>230</posx>
+					<posy>30</posy>
+					<width>800</width>
+					<height>80</height>
+					<texture>white_gradient2.png</texture>
+					<aspctratio>stretch</aspctratio>
+				</control>
+				<control type="togglebutton" id="10101">
+                    <animation type="Focus">
+                          <effect type="slide" end="-5,0" time="75"/>
+                          <effect type="slide" end="5,0" time="75" delay="75"/>
+                    </animation>
+                    <posx>465</posx>
+                    <posy>40</posy>
+                    <width>90</width>
+                    <height>90</height>
+					<textoffsety>85</textoffsety>
+                    <label>SEARCH</label>
+					<font>font14b</font>
+					<textcolor>darkgrey</textcolor>
+					<align>center</align>
+					<aligny>bottom</aligny>
+                    <texturefocus>search_focus.png</texturefocus>
+                    <texturenofocus>search.png</texturenofocus>
+                    <alttexturefocus>search_focus.png</alttexturefocus>
+                    <alttexturenofocus>search.png</alttexturenofocus>
+                    <onclick lang="python">
+<![CDATA[
+window.GetToggleButton(10102).SetSelected(False)
+window.GetToggleButton(10103).SetSelected(False)
+
+window.GetControl(1200).SetVisible(True)
+window.GetControl(1300).SetVisible(False)
+window.GetControl(1400).SetVisible(False)
+
+]]>
+                    </onclick>
+                    <altclick lang="python">
+<![CDATA[
+window.GetToggleButton(10102).SetSelected(False)
+window.GetToggleButton(10103).SetSelected(False)
+
+window.GetControl(1200).SetVisible(True)
+window.GetControl(1300).SetVisible(False)
+window.GetControl(1400).SetVisible(False)
+]]>
+                    </altclick>
+                    <onright>10102</onright>
+					<ondown lang="python">
+<![CDATA[
+if window.GetControl(1200).IsVisible(): window.GetControl(1201).SetFocus()
+if window.GetControl(1300).IsVisible(): window.GetControl(52).SetFocus()
+if window.GetControl(1400).IsVisible(): window.GetControl(53).SetFocus()
+]]>
+					</ondown>
+				</control>
+				<control type="togglebutton" id="10102">
+                    <animation type="Focus">
+                          <effect type="slide" end="-5,0" time="75"/>
+                          <effect type="slide" end="5,0" time="75" delay="75"/>
+                    </animation>
+                    <posx>590</posx>
+                    <posy>40</posy>
+                    <width>90</width>
+                    <height>90</height>
+                    <textoffsety>85</textoffsety>
+                    <label>MODULES</label>
+					<font>font14b</font>
+					<textcolor>darkgrey</textcolor>
+					<align>center</align>
+					<aligny>bottom</aligny>
+                    <texturefocus>modules_focus.png</texturefocus>
+                    <texturenofocus>modules.png</texturenofocus>
+                    <alttexturefocus>modules_focus.png</alttexturefocus>
+                    <alttexturenofocus>modules.png</alttexturenofocus>
+                    <onclick lang="python">
+<![CDATA[
+window.GetToggleButton(10101).SetSelected(False)
+window.GetToggleButton(10103).SetSelected(False)
+
+main_obj.GetModules()
+window.GetControl(1200).SetVisible(False)
+window.GetControl(1300).SetVisible(True)
+window.GetControl(1400).SetVisible(False)
+]]>
+                    </onclick>
+                    <altclick lang="python">
+<![CDATA[
+window.GetToggleButton(10101).SetSelected(False)
+window.GetToggleButton(10103).SetSelected(False)
+
+main_obj.GetModules()
+window.GetControl(1200).SetVisible(False)
+window.GetControl(1300).SetVisible(True)
+window.GetControl(1400).SetVisible(False)
+]]>
+                    </altclick>
+                    <onleft>10101</onleft>
+					<onright>10103</onright>
+					<ondown lang="python">
+<![CDATA[
+if window.GetControl(1200).IsVisible(): window.GetControl(1201).SetFocus()
+if window.GetControl(1300).IsVisible(): window.GetControl(52).SetFocus()
+if window.GetControl(1400).IsVisible(): window.GetControl(53).SetFocus()
+]]>
+					</ondown>
+				</control>
+				<control type="togglebutton" id="10103">
+                    <animation type="Focus">
+                          <effect type="slide" end="-5,0" time="75"/>
+                          <effect type="slide" end="5,0" time="75" delay="75"/>
+                    </animation>
+                    <posx>715</posx>
+                    <posy>40</posy>
+                    <width>90</width>
+                    <height>90</height>
+                    <textoffsety>85</textoffsety>
+                    <label>SETTINGS</label>
+					<font>font14b</font>
+					<textcolor>darkgrey</textcolor>
+					<align>center</align>
+					<aligny>bottom</aligny>
+                    <texturefocus>settings_focus.png</texturefocus>
+                    <texturenofocus>settings.png</texturenofocus>
+                    <alttexturefocus>settings_focus.png</alttexturefocus>
+                    <alttexturenofocus>settings.png</alttexturenofocus>
+                    <onclick lang="python">
+<![CDATA[
+window.GetToggleButton(10101).SetSelected(False)
+window.GetToggleButton(10102).SetSelected(False)
+
+main_obj.GetSettings()
+window.GetControl(1200).SetVisible(False)
+window.GetControl(1300).SetVisible(False)
+window.GetControl(1400).SetVisible(True)
+]]>
+                    </onclick>
+                    <altclick lang="python">
+<![CDATA[
+window.GetToggleButton(10101).SetSelected(False)
+window.GetToggleButton(10102).SetSelected(False)
+
+main_obj.GetSettings()
+window.GetControl(1200).SetVisible(False)
+window.GetControl(1300).SetVisible(False)
+window.GetControl(1400).SetVisible(True)
+]]>
+                    </altclick>
+                    <onleft>10102</onleft>
+					<ondown lang="python">
+<![CDATA[
+if window.GetControl(1200).IsVisible(): window.GetControl(1201).SetFocus()
+if window.GetControl(1300).IsVisible(): window.GetControl(52).SetFocus()
+if window.GetControl(1400).IsVisible(): window.GetControl(53).SetFocus()
+]]>
+					</ondown>
+				</control>
+        </control>    
+
+		
+		
+		
+		
+		
+		
+		
+		<!-- SECTION1: SEARCH -->
+		<control type="group" id="1200">
+		
+			<control type="edit" id="1201">
+				<posx>140</posx>
+				<posy>130</posy>
+				<width>996</width>
+				<height>129</height>
+				<onup>10101</onup>
+				<ondown>51</ondown>
+				<onleft>10111</onleft>
+				<label>-</label>
+				<textoffsetx>98</textoffsetx>
+				<align>left</align>
+				<aligny>center</aligny>
+				<selectedcolor>black</selectedcolor>
+				<textcolor>black</textcolor>
+				<disabledcolor>darkgrey</disabledcolor>
+				<font>font28b</font>
+				<texturefocus>searchbar_focus.png</texturefocus>
+				<texturenofocus>searchbar.png</texturenofocus>
+				<ontextchange lang="python">
+<![CDATA[
+search = window.GetEdit(1201).GetText()
+if len(search) > 0:
+	window.GetLabel(1202).SetVisible(False)
+else:
+	window.GetLabel(1202).SetVisible(True)
+
+if len(search) > 1:
+	main_obj.Search(str(search))
+else:
+	list = window.GetList(51)
+	list_items = mc.ListItems()
+	del list_items[:]
+	list.SetItems(list_items)
+]]>
+				</ontextchange>
+				<onclick lang="python">
+<![CDATA[
+search = mc.ShowDialogKeyboard("Search", window.GetEdit(1201).GetText(), False)
+if len(search) > 0:
+	window.GetLabel(1202).SetVisible(False)
+else:
+	window.GetLabel(1202).SetVisible(True)
+
+if len(search) > 1:
+	main_obj.Search(str(search))
+else:
+	list = window.GetList(51)
+	list_items = mc.ListItems()
+	del list_items[:]
+	list.SetItems(list_items)
+]]>
+				</onclick>
+			</control>
+			<control type="button" id="10111">
+				<posx>140</posx>
+				<posy>130</posy>
+				<width>103</width>
+				<height>129</height>
+                <texturefocus>star_focus.png</texturefocus>
+                <texturenofocus>star.png</texturenofocus>
+                <onclick lang="python">
+<![CDATA[
+search = window.GetEdit(1201).GetText()
+if len(search) > 1:
+	main_obj.Search(str(search))
+	window.GetControl(51).SetFocus()
+else:
+	list = window.GetList(51)
+	list_items = mc.ListItems()
+	del list_items[:]
+	list.SetItems(list_items)
+]]>
+                </onclick>
+                <onright>1201</onright>
+				<ondown lang="python">
+<![CDATA[
+search = main_obj.Search_History(index)
+if search != '':
+	window.GetLabel(1202).SetVisible(False)
+	window.GetEdit(1201).SetText(search)
+	index += 1
+
+
+]]>
+				</ondown>
+				<onup lang="python">
+<![CDATA[
+if index == 0:
+	window.GetEdit(1201).SetText('')
+	window.GetLabel(1202).SetVisible(True)
+else:
+	index -= 1
+	search = main_obj.Search_History(index)
+	window.GetLabel(1202).SetVisible(False)
+	window.GetEdit(1201).SetText(search)
+
+]]>
+				</onup>
+			</control>			
+			<control type="label" id="1202">
+				<animation type="Visible">
+					<effect type="fade" time="100"/>
+				</animation>
+				<posx>220</posx>
+				<posy>175</posy>
+				<width>300</width>
+				<height>41</height>
+				<label>Start typing here...</label>
+				<align>center</align>
+				<aligny>center</aligny>
+				<font>font28b</font>
+				<textcolor>ff999999</textcolor>
+			</control>
+
+			<control type="panel" id="51">
+				<include>BrowseListAnimation</include>
+				<preloaditems>2</preloaditems>
+				<posx>155</posx>
+				<posy>250</posy>
+				<width>1000</width>
+				<height>470</height>
+				<onleft>10101</onleft>
+				<onright>-</onright>
+				<onup>1201</onup>
+				<ondown>-</ondown>
+				<scrolltime>400</scrolltime>
+				<pagecontrol>60</pagecontrol>
+				<orientation>vertical</orientation>
+				<offsetx>4</offsetx>
+				<offsety>4</offsety>
+
+				<itemlayout width="1000" height="60">
+					<control type="image">
+						<posx>20</posx>
+						<posy>0</posy>
+						<width>50</width>
+						<height>50</height>
+						<texture>$INFO[ListItem.property(custom:icon)]</texture>
+					</control>
+                                        <control type="label">
+						<posx>100</posx>
+						<posy>14</posy>
+						<width>700</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>ffffffff</textcolor>
+					</control>
+					<control type="label">
+						<posx>930</posx>
+						<posy>14</posy>
+						<width>200</width>
+						<height>26</height>
+						<font>font22</font>
+						<align>right</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.property(custom:name)]</label>
+						<textcolor>ffffffff</textcolor>
+					</control>
+				</itemlayout>
+
+				<focusedlayout width="1000" height="60">
+					<control type="image">
+						 <posx>0</posx>
+						 <posy>0</posy>
+						 <width>950</width>
+						 <height>50</height>
+						 <aspectratio>stretch</aspectratio>
+						 <texture>white_gradient3.png</texture>
+					</control>
+ 					<control type="image">
+						 <posx>0</posx>
+						 <posy>50</posy>
+						 <width>950</width>
+						 <height>2</height>
+						 <aspectratio>stretch</aspectratio>
+						 <texture>f1f1f1.png</texture>
+					</control>
+					<control type="image">
+						<posx>20</posx>
+						<posy>0</posy>
+						<width>50</width>
+						<height>50</height>
+						<texture>$INFO[ListItem.property(custom:icon)]</texture>
+					</control>
+                                        <control type="label">
+						<posx>100</posx>
+						<posy>14</posy>
+						<width>700</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>ff000000</textcolor>
+					</control>
+					<control type="label">
+						<posx>930</posx>
+						<posy>14</posy>
+						<width>200</width>
+						<height>26</height>
+						<font>font22</font>
+						<align>right</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.property(custom:name)]</label>
+						<textcolor>ff000000</textcolor>
+					</control>
+				</focusedlayout>
+				<content type="url" url="">
+					<onclick lang="python">
+<![CDATA[
+list = window.GetList(51)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+stream_name = listitem.GetLabel()
+stream_id = listitem.GetProperty('stream_id')
+module = listitem.GetProperty('module')
+search = window.GetEdit(1201).GetText()
+main_obj.Search_History(0, search)
+
+episode = main_obj.module_obj[module].episode
+if listitem.GetProperty('episode') == "True":
+    episode = True
+
+if episode:
+    main_obj.Episode(module, stream_name, stream_id)
+else:
+    main_obj.Play(module, stream_name, stream_id)
+]]>
+					</onclick>
+				</content>
+			</control>
+
+		</control>
+		
+		
+		
+		
+		
+		
+		<!-- SECTION1: MODULES -->
+		
+		<control type="group" id="1300">
+			<visible>False</visible>
+			<animation type="WindowOpen" reversible="false">
+				<effect type="slide" start="0,-100" end="0,0" time="400" tween="cubic" easing="out" />
+				<effect type="fade" start="0" end="100" time="400" />
+			</animation>
+			<animation type="WindowClose" reversible="false">
+				<effect type="fade" start="100" end="0" time="400" />
+			</animation>
+			<animation type="Visible" reversible="false">
+				<effect type="slide" start="0,-100" end="0,0" time="400" tween="cubic" easing="out" />
+				<effect type="fade" start="0" end="100" time="400" />
+			</animation>
+			<animation type="Hidden" reversible="false">
+				<effect type="fade" start="100" end="0" time="400" />
+			</animation>
+			<control type="panel" id="52">
+				<preloaditems>2</preloaditems>
+				<posx>130</posx>
+				<posy>150</posy>
+				<width>1000</width>
+				<height>500</height>
+				<onleft>-</onleft>
+				<onright>-</onright>
+				<onup>10102</onup>
+				<ondown>-</ondown>
+				<scrolltime>400</scrolltime>
+				<pagecontrol>60</pagecontrol>
+				<orientation>vertical</orientation>
+				<offsetx>10</offsetx>
+				<offsety>10</offsety>
+
+				<itemlayout width="200" height="200">
+					<control type="image">
+						<posx>10</posx>
+						<posy>10</posy>
+						<width>180</width>
+						<height>180</height>
+						<texture>app.png</texture>
+					</control>
+					<control type="image">
+						<posx>35</posx>
+						<posy>35</posy>
+						<width>130</width>
+						<height>130</height>
+						<texture>$INFO[ListItem.Thumb]</texture>
+					</control>
+				</itemlayout>
+
+				<focusedlayout width="200" height="200">
+					<control type="image">
+						<posx>0</posx>
+						<posy>0</posy>
+						<width>200</width>
+						<height>200</height>
+						<texture>app_dark.png</texture>
+					</control>
+					<control type="image">
+						<posx>25</posx>
+						<posy>25</posy>
+						<width>150</width>
+						<height>150</height>
+						<texture>$INFO[ListItem.Thumb]</texture>
+					</control>
+				</focusedlayout>
+				<content type="url" url="">
+					<onclick lang="python">
+<![CDATA[
+list = window.GetList(52)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+module = listitem.GetLabel()
+main_obj.GetApp(module)
+]]>
+					</onclick>
+				</content>
+            </control>
+
+        </control>
+		
+		
+		<!-- SECTION1: SETTINGS -->
+		
+		<control type="group" id="1400">
+			<visible>False</visible>
+			<animation type="Visible" reversible="false">
+				<effect type="slide" start="0,-100" end="0,0" time="400" tween="cubic" easing="out" />
+				<effect type="fade" start="0" end="100" time="400" />
+			</animation>
+			<animation type="Hidden" reversible="false">
+				<effect type="fade" start="100" end="0" time="400" />
+			</animation>
+			<control type="label">
+						<posx>320</posx>
+						<posy>170</posy>
+						<width>200</width>
+						<height>30</height>
+						<font>font26b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>Settings:</label>
+						<textcolor>ff333333</textcolor>
+			</control>
+			<control type="label">
+						<posx>330</posx>
+						<posy>200</posy>
+						<width>200</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>Disable modules:</label>
+						<textcolor>white</textcolor>
+			</control>
+			<control type="panel" id="53">
+				<preloaditems>2</preloaditems>
+				<posx>330</posx>
+				<posy>230</posy>
+				<width>600</width>
+				<height>230</height>
+				<onleft>-</onleft>
+				<onright>-</onright>
+				<onup>10103</onup>
+				<ondown>54</ondown>
+				<scrolltime>400</scrolltime>
+				<orientation>vertical</orientation>
+				<offsetx>10</offsetx>
+				<offsety>10</offsety>
+
+				<itemlayout width="500" height="40">
+                    <control type="label">
+						<posx>30</posx>
+						<posy>10</posy>
+						<width>300</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+					</control>
+					<control type="label">
+						<posx>380</posx>
+						<posy>10</posy>
+						<width>35</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.property(custom:country)]</label>
+						<textcolor>white</textcolor>
+					</control>
+					<control type="image">
+						<posx>430</posx>
+						<posy>4</posy>
+						<width>32</width>
+						<height>32</height>
+						<texture>$INFO[ListItem.Thumb]</texture>
+					</control>
+				</itemlayout>
+
+				<focusedlayout width="500" height="40">
+					<control type="image">
+						 <posx>0</posx>
+						 <posy>0</posy>
+						 <width>500</width>
+						 <height>40</height>
+						 <aspectratio>stretch</aspectratio>
+						 <texture>white_gradient3.png</texture>
+					</control>
+                    <control type="label">
+						<posx>35</posx>
+						<posy>10</posy>
+						<width>300</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>ff000000</textcolor>
+					</control>
+					<control type="label">
+						<posx>380</posx>
+						<posy>10</posy>
+						<width>35</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.property(custom:country)]</label>
+						<textcolor>ff000000</textcolor>
+					</control>
+					<control type="image">
+						<posx>430</posx>
+						<posy>4</posy>
+						<width>32</width>
+						<height>32</height>
+						<texture>$INFO[ListItem.Thumb]</texture>
+					</control>
+				</focusedlayout>
+				<content type="url" url="">
+					<onclick lang="python">
+<![CDATA[
+mc.ShowDialogWait()
+list = window.GetList(53)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+module = listitem.GetLabel()
+if module in main_obj.settings['modules_on']:
+	main_obj.settings['modules_on'].remove(module)
+	main_obj.Search_DB_Remove(module)
+else:
+	main_obj.settings['modules_on'].append(module)
+	main_obj.Search_DB_Add(module)
+main_obj.Settings(True)
+main_obj = main.main_obj()
+main_obj.Search_DB_Update(86400)
+main_obj.GetSettings()
+mc.HideDialogWait()
+]]>
+					</onclick>
+				</content>
+            </control>
+			
+			<control type="label">
+				<posx>330</posx>
+				<posy>470</posy>
+				<width>200</width>
+				<height>26</height>
+				<font>font22b</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<label>Other:</label>
+				<textcolor>white</textcolor>
+			</control>
+			<control type="panel" id="54">
+				<preloaditems>2</preloaditems>
+				<posx>330</posx>
+				<posy>500</posy>
+				<width>600</width>
+				<height>250</height>
+				<onleft>-</onleft>
+				<onright>-</onright>
+				<onup>53</onup>
+				<ondown>-</ondown>
+				<scrolltime>400</scrolltime>
+				<orientation>vertical</orientation>
+				<offsetx>10</offsetx>
+				<offsety>10</offsety>
+
+				<itemlayout width="500" height="40">
+                    <control type="label">
+						<posx>30</posx>
+						<posy>10</posy>
+						<width>300</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+					</control>
+					<control type="image">
+						<posx>430</posx>
+						<posy>4</posy>
+						<width>32</width>
+						<height>32</height>
+						<texture>$INFO[ListItem.Thumb]</texture>
+					</control>
+				</itemlayout>
+
+				<focusedlayout width="500" height="40">
+					<control type="image">
+						 <posx>0</posx>
+						 <posy>0</posy>
+						 <width>500</width>
+						 <height>40</height>
+						 <aspectratio>stretch</aspectratio>
+						 <texture>white_gradient3.png</texture>
+					</control>
+                    <control type="label">
+						<posx>35</posx>
+						<posy>10</posy>
+						<width>300</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>ff000000</textcolor>
+					</control>
+					<control type="image">
+						<posx>430</posx>
+						<posy>4</posy>
+						<width>32</width>
+						<height>32</height>
+						<texture>$INFO[ListItem.Thumb]</texture>
+					</control>
+				</focusedlayout>
+				<content type="url" url="">
+					<onclick lang="python">
+<![CDATA[
+mc.ShowDialogWait()
+list = window.GetList(54)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+id = listitem.GetProperty('id')
+if id == "subtitle":
+	if main_obj.settings['subtitle']:
+		main_obj.settings['subtitle'] = False
+	else:
+		main_obj.settings['subtitle'] = True
+	main_obj.Settings(True)
+	main_obj.GetSettings()
+if id == "clear":
+	ba.CleanDb(0)
+	main_obj = main.main_obj()
+	main_obj.Search_DB_Update(86400)
+	main_obj.GetSettings()
+mc.HideDialogWait()
+]]>
+					</onclick>
+				</content>
+            </control>
+
+        </control>
+		<control type="scrollbar" id="60">
+				<visible>Control.IsVisible(51) + Control.IsVisible(52)</visible>
+				<description>Scrollbar</description>
+                <posx>1100</posx>
+                <posy>230</posy>
+				<width>30</width>
+				<height>470</height>
+				<orientation>vertical</orientation>
+				<textureslidernib>orb_nofo.png</textureslidernib>
+				<textureslidernibfocus>orb_fo.png</textureslidernibfocus>
+				<pulseonselect>true</pulseonselect>
+				<orientation>vertical</orientation>
+				<showonepage>false</showonepage>
+				<onright>-</onright>
+		</control> 
+		
+		<!-- Debug ->
+		<control type="image">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
+            <texture>debug/debuggrid.png</texture>
+        </control>
+		<!-- Debug -->
+	</controls>
+</window>
+
+
+

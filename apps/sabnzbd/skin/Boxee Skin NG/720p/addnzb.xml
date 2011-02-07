@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<window type="dialog" id="15000">
+    <defaultcontrol always="true">300</defaultcontrol>
+    <allowoverlay>no</allowoverlay>
+    <onload lang="python">
+<![CDATA[
+import xbmc, mc
+from libs import app
+
+window = mc.GetWindow(15000)
+
+nzbname = mc.GetApp().GetLocalConfig().GetValue("nzb_name")
+window.GetEdit(300).SetText(nzbname)
+
+obj = app.Sabnzbd()
+obj.GetCategory()
+]]>
+    </onload>
+	<controls>
+        <control type="image">
+			<description>background image overlay</description>
+			<animation type="WindowOpen">
+				<effect type="fade" start="0" end="100" time="200" delay="0"/>
+			</animation>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="200" delay="0"/>
+			</animation>
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>1280</width>
+			<height>720</height>
+			<texture>background-dialog.png</texture>
+		</control>
+        <control type="label">
+			<posx>370</posx>
+			<posy>170</posy>
+			<width>350</width>
+			<height>35</height>
+			<font>font30b</font>
+			<align>left</align>
+			<aligny>center</aligny>
+			<label>Add NZB:</label>
+			<textcolor>black</textcolor>
+		</control>
+                <control type="label">
+			<posx>390</posx>
+			<posy>240</posy>
+			<width>190</width>
+			<height>26</height>
+			<font>font25</font>
+			<align>left</align>
+			<aligny>center</aligny>
+			<label>Name label:</label>
+			<textcolor>darkgrey</textcolor>
+		</control>
+		<control type="edit" id="300">
+				<posx>390</posx>
+				<posy>270</posy>
+				<width>521</width>
+				<height>69</height>
+                <onup>-</onup>
+                <ondown>51</ondown>
+				<label>-</label>
+				<align>center</align>
+				<aligny>center</aligny>
+				<selectedcolor>black</selectedcolor>
+				<textcolor>black</textcolor>
+				<disabledcolor>darkgrey</disabledcolor>
+				<font>font20b</font>
+                <texturefocus border="5">field_on.png</texturefocus>
+                <texturenofocus border="5">field_off.png</texturenofocus>
+				<aspectratio>stretch</aspectratio>
+				<ontextchange></ontextchange>
+				<onclick lang="python">
+<![CDATA[
+search = mc.ShowDialogKeyboard("Name Content:", "", False)
+if search:
+    mc.GetApp().GetLocalConfig().SetValue("nzb_name", search)
+    window.GetButton(300).SetLabel(search)
+]]>
+				</onclick>
+		</control>
+
+        <control type="label">
+			<posx>390</posx>
+			<posy>360</posy>
+			<width>190</width>
+			<height>26</height>
+			<font>font25</font>
+			<align>left</align>
+			<aligny>center</aligny>
+			<label>Category label:</label>
+			<textcolor>darkgrey</textcolor>
+		</control>
+
+                <control type="image">
+                        <posx>390</posx>
+                        <posy>390</posy>
+                        <width>521</width>
+                        <height>69</height>
+                        <texture border="5">field_on.png</texture>
+                        <visible>Control.HasFocus(51)</visible>
+                </control>
+                <control type="image">
+                        <posx>390</posx>
+                        <posy>390</posy>
+                        <width>521</width>
+                        <height>69</height>
+                        <texture border="5">field_off.png</texture>
+                        <visible>!Control.HasFocus(51)</visible>
+                </control>
+
+	 	<control type="group" id="7001">
+                        <control type="wraplist" id="51">
+				<include>BrowseListAnimation</include>
+				<preloaditems>2</preloaditems>
+				<posx>400</posx>
+				<posy>390</posy>
+				<width>500</width>
+				<height>69</height>
+				<onup>300</onup>
+				<ondown>301</ondown>
+				<scrolltime>400</scrolltime>
+				<pagecontrol>60</pagecontrol>
+                                <focusposition>1</focusposition>
+				<orientation>horizontal</orientation>
+				<offsetx>10</offsetx>
+				<offsety>10</offsety>
+                                
+				<itemlayout width="200" height="40">
+					<control type="label">
+						<posx>20</posx>
+						<posy>7</posy>
+						<width>190</width>
+						<height>26</height>
+						<font>font20</font>
+						<align>center</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>ff777777</textcolor>
+					</control>
+				</itemlayout>
+
+				<focusedlayout width="200" height="40">
+                                        <control type="image">
+                                            <posx>-80</posx>
+                                            <posy>3</posy>
+                                            <width>200</width>
+                                            <height>40</height>
+                                            <texture>focusrow2.png</texture>
+                                            <aspectratio>stretch</aspectratio>
+                                        </control>
+
+					<control type="label">
+						<posx>20</posx>
+						<posy>7</posy>
+						<width>190</width>
+						<height>26</height>
+						<font>font20</font>
+						<align>center</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>ff333333</textcolor>
+					</control>
+				</focusedlayout>
+
+				<content type="url" url="">
+					<onclick></onclick>
+				</content>
+			</control>
+
+                        <control type="button" id="301">
+				<posx>750</posx>
+				<posy>490</posy>
+				<width>160</width>
+				<height>69</height>
+				<label>ADD</label>
+				<font>font22b</font>
+                                <align>center</align>
+				<aligny>center</aligny>
+				<textcolor>lightgrey</textcolor>
+                                <focusedcolor>black</focusedcolor>
+                                <aspectratio>stretch</aspectratio>
+				<texturefocus border="5">button_on.png</texturefocus>
+				<texturenofocus border="5">button_off.png</texturenofocus>
+                                <onup>51</onup>
+                                <ondown>-</ondown>
+				<onclick lang="python">
+<![CDATA[
+mc.ShowDialogWait()
+list = window.GetList(51)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+
+nzbcat = listitem.GetLabel()
+nzburl = mc.GetApp().GetLocalConfig().GetValue("nzb_url")
+nzbtitle = window.GetEdit(300).GetText()
+if nzburl:
+    obj.AddQuery(str(nzburl), str(nzbtitle), str(nzbcat))
+    mc.GetApp().GetLocalConfig().SetValue("nzb_name", "")
+    mc.GetApp().GetLocalConfig().SetValue("nzb_url", "")
+    xbmc.executebuiltin("Dialog.Close(15000)")
+    obj.EmptySearch(14445)
+    mc.ActivateWindow(14444)
+mc.HideDialogWait()
+]]>
+                                </onclick>
+			</control>
+
+		</control>
+	 </controls>
+</window>

@@ -1,0 +1,16 @@
+	<app>
+		<id>com.bart.sabnzbd</id>
+		<name>Sabnzbd</name>
+		<version>0.71</version>
+		<description>Download content with Sabnzbd</description>
+		<thumb>http://www.bartsidee.nl/boxee/apps/sabnzbd/thumb.png</thumb>
+		<repositoryid>com.bart</repositoryid>
+		<repository>http://www.bartsidee.nl/boxee</repository>
+		<media>video</media>
+		<copyright>bartsidee</copyright>
+		<email>bartsidee@gmail.com</email>
+		<type>skin</type>
+		<startWindow>14444</startWindow>
+		<platform>all</platform>
+		<minversion>0.9.14</minversion>
+	</app>

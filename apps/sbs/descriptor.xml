@@ -1,0 +1,16 @@
+<app>
+		<id>com.bart.sbs</id>
+		<name>SBS Gemist</name>
+		<version>0.3</version>
+		<description>Bekijk uitzendingen terug van sbs</description>
+		<thumb>http://www.bartsidee.nl/boxee/apps/sbs/thumb.png</thumb>
+		<repositoryid>com.bart</repositoryid>
+		<repository>http://www.bartsidee.nl/boxee</repository>
+		<media>video</media>
+		<copyright>bartsidee</copyright>
+		<email>bartsidee@gmail.com</email>
+		<type>skin</type>
+		<startWindow>14000</startWindow>
+		<platform>all</platform>
+		<minversion>0.9.14</minversion>
+	</app>

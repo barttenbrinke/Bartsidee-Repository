@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+   <window type="window" id="14001">
+   <defaultcontrol always="true">53</defaultcontrol>
+   <allowoverlay>no</allowoverlay>
+   <controls>
+        <include>Common_Background</include>
+        <include>Common_Status</include>
+        <control type="label" id="30">
+        <posx>54</posx>
+        <posy>35</posy>
+        <width>1100</width>
+        <height>56</height>
+        <align>left</align>
+        <aligny>center</aligny>
+                <haspath>true</haspath>
+        <font>title32b</font>
+        <textcolor>white</textcolor>
+        <label>TMF</label>
+        </control>
+        <control type="label" id="31">
+        <posx>54</posx>
+        <posy>70</posy>
+        <width>1100</width>
+        <height>56</height>
+        <align>left</align>
+        <aligny>center</aligny>
+        <haspath>true</haspath>
+        <font>font22b</font>
+        <textcolor>white</textcolor>
+    	<label>$INFO[Container(53).ListItem.property(custom:titel)]</label>
+        </control>
+
+		<control type="panel" id="53">
+			<include>BrowseListAnimation</include>
+			<preloaditems>2</preloaditems>
+			<posx>26</posx>
+			<posy>136</posy>
+			<width>1220</width>
+			<height>584</height>
+			<onleft>-</onleft>
+			<onright>-</onright>
+			<onup>-</onup>
+			<ondown>-</ondown>
+			<scrolltime>400</scrolltime>
+			<pagecontrol>60</pagecontrol>
+			<orientation>vertical</orientation>
+			<offsetx>4</offsetx>
+			<offsety>4</offsety>
+			<itemlayout width="400" height="108">
+				<control type="image" platformClass="pc">
+					<posx>0</posx>
+					<posy>46</posy>
+					<width>400</width>
+					<height>112</height>
+					<texture>home_line_horizontal_left.png</texture>
+				</control>
+				<include>BrowseThumbSquareSmallThumbUnfocus</include>
+				<include>BrowseThumbSquareSmallThumbUnfocusDefaultMusic</include>
+				<control type="label">
+					<posx>116</posx>
+					<posy>30</posy>
+					<width>250</width>
+					<height>24</height>
+					<font>font22b</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>$INFO[ListItem.Label]</label>
+					<textcolor>grey</textcolor>
+				</control>
+			</itemlayout>
+			<focusedlayout width="400" height="108">
+				<control type="image" platformClass="pc">
+					<posx>0</posx>
+					<posy>46</posy>
+					<width>400</width>
+					<height>112</height>
+					<texture>home_line_horizontal_left.png</texture>
+				</control>
+				<control type="image">
+					<posx>0</posx>
+					<posy>-16</posy>
+					<width>400</width>
+					<height>128</height>
+					<texture border="30">line_view_on.png</texture>
+				</control>
+				<include>BrowseThumbSquareSmallThumbUnfocus</include>
+				<include>BrowseThumbSquareSmallThumbUnfocusDefaultMusic</include>
+				<control type="group">
+					<control type="label">
+						<posx>116</posx>
+						<posy>30</posy>
+						<width>250</width>
+						<height>24</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+					</control>
+				</control>
+			</focusedlayout>
+			<content type="url" url="">
+			<onclick lang="python"><![CDATA[
+from resources.lib import tmf
+
+list = mc.GetWindow(14001).GetList(53)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+tmf.doAction(str(listitem.GetPath()), str(listitem.GetLabel()), str(listitem.GetEpisode()), str(listitem.GetSeason()), str(listitem.GetDescription()), str(listitem.GetThumbnail()))
+]]></onclick>
+			</content>
+		</control>
+		<include>BrowseQueueView</include>
+		<control type="image" platformClass="pc">
+			<posx>396</posx>
+			<posy>100</posy>
+			<width>67</width>
+			<height>680</height>
+			<texture>home_line_vertical.png</texture>
+			<colordiffuse>80FFFFFF</colordiffuse>
+		</control>
+		<control type="image" platformClass="pc">
+			<posx>796</posx>
+			<posy>100</posy>
+			<width>67</width>
+			<height>680</height>
+			<texture>home_line_vertical.png</texture>
+			<colordiffuse>80FFFFFF</colordiffuse>
+		</control>
+
+   </controls>
+</window>

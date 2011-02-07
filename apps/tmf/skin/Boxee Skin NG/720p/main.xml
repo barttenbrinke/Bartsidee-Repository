@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+   <window type="window" id="14000">
+   <defaultcontrol always="true">53</defaultcontrol>
+   <allowoverlay>no</allowoverlay>
+   <onload lang="python"><![CDATA[
+from resources.lib import tmf
+tmf.doLoad()
+]]></onload>
+   <controls>
+        <include>Common_Background</include>
+        <include>Common_Status</include>
+        <control type="label" id="30">
+        <posx>54</posx>
+        <posy>35</posy>
+        <width>1100</width>
+        <height>56</height>
+        <align>left</align>
+        <aligny>center</aligny>
+                <haspath>true</haspath>
+        <font>title32b</font>
+        <textcolor>white</textcolor>
+        <label>TMF</label>
+        </control>
+        <control type="label" id="31">
+        <posx>54</posx>
+        <posy>70</posy>
+        <width>1100</width>
+        <height>56</height>
+        <align>left</align>
+        <aligny>center</aligny>
+        <haspath>true</haspath>
+        <font>font22b</font>
+        <textcolor>white</textcolor>
+    	<label>$INFO[Container(53).ListItem.property(custom:titel)]</label>
+        </control>
+
+		<control type="list" id="53">
+			<include>BrowseListAnimation</include>
+			<preloaditems>2</preloaditems>
+			<posx>26</posx>
+			<posy>140</posy>
+			<width>950</width>
+			<height>528</height>
+			<onleft>8000</onleft>
+			<onright>7000</onright>
+			<onup>6000</onup>
+			<ondown>1000</ondown>
+			<scrolltime>200</scrolltime>
+			<pagecontrol>60</pagecontrol>
+			<orientation>vertical</orientation>
+			<focusposition>6</focusposition>
+			<offsety>4</offsety>
+			<itemlayout height="40">
+				<control type="label">
+					<posx>36</posx>
+					<posy>0</posy>
+					<width>900</width>
+					<height>40</height>
+					<font>font22</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<info>ListItem.Label</info>
+					<textcolor>grey</textcolor>
+					<selectedcolor>grey</selectedcolor>
+				</control>
+			</itemlayout>	
+			<focusedlayout height="40">
+				<control type="image">
+					<visible>Control.HasFocus(53)</visible>
+					<posx>0</posx>
+					<posy>-19</posy>
+					<width>900</width>
+					<height>78</height>
+					<texture border="39">line_view_on.png</texture>
+				</control>
+				<control type="label">
+					<posx>36</posx>
+					<posy>0</posy>
+					<width>950</width>
+					<height>40</height>
+					<font>font22b</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<info>ListItem.Label</info>
+					<textcolor>white</textcolor>
+					<selectedcolor>white</selectedcolor>
+				</control>
+			</focusedlayout>
+			<content type="url" url="">
+			<onclick lang="python"><![CDATA[
+from resources.lib import tmf
+
+list = mc.GetWindow(14000).GetList(53)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+tmf.doAction(str(listitem.GetPath()), str(listitem.GetLabel()), str(listitem.GetEpisode()), str(listitem.GetSeason()), str(listitem.GetDescription()), str(listitem.GetThumbnail()))
+]]></onclick>
+			</content>
+		</control>
+   </controls>
+</window>

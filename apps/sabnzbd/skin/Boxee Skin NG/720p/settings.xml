@@ -1,0 +1,307 @@
+<?xml version="1.0"?>
+<window type="dialog" id="16000">
+        <defaultcontrol always="true">300</defaultcontrol>
+        <allowoverlay>no</allowoverlay>
+        <onload lang="python">
+<![CDATA[
+import xbmc, mc
+from libs import app
+
+obj = app.Sabnzbd()
+obj.GetRet()
+window = mc.GetWindow(16000)
+
+api = mc.GetApp().GetLocalConfig().GetValue("api")
+host = mc.GetApp().GetLocalConfig().GetValue("host")
+port = mc.GetApp().GetLocalConfig().GetValue("port")
+
+window.GetEdit(300).SetText(host)
+window.GetEdit(301).SetText(port)
+window.GetEdit(302).SetText(api)
+
+]]>
+        </onload>
+		<controls>
+                <control type="image">
+					<description>background image overlay</description>
+					<animation type="WindowOpen">
+						<effect type="fade" start="0" end="100" time="200" delay="0"/>
+					</animation>
+					<animation type="WindowClose">
+						<effect type="fade" start="100" end="0" time="200" delay="0"/>
+					</animation>
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>1280</width>
+					<height>720</height>
+					<texture>background-dialog.png</texture>
+				</control>
+                <control type="label">
+					<posx>370</posx>
+					<posy>170</posy>
+					<width>350</width>
+					<height>35</height>
+					<font>font30b</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>SABnzbd Settings:</label>
+					<textcolor>black</textcolor>
+				</control>
+                <control type="label">
+					<posx>390</posx>
+					<posy>200</posy>
+					<width>250</width>
+					<height>26</height>
+					<font>font25</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>Host (IP-Address):</label>
+					<textcolor>darkgrey</textcolor>
+				</control>
+				<control type="edit" id="300">
+					<posx>390</posx>
+					<posy>230</posy>
+					<width>300</width>
+					<height>69</height>
+                    <onup>-</onup>
+                    <onright>301</onright>
+                    <ondown>302</ondown>
+					<label>-</label>
+					<align>center</align>
+					<aligny>center</aligny>
+					<selectedcolor>black</selectedcolor>
+					<textcolor>black</textcolor>
+					<disabledcolor>darkgrey</disabledcolor>
+					<font>font24b</font>
+					<texturefocus border="5">field_on.png</texturefocus>
+					<texturenofocus border="5">field_off.png</texturenofocus>
+					<aspectratio>stretch</aspectratio>
+					<ontextchange></ontextchange>
+					<onclick lang="python">
+<![CDATA[
+host = mc.ShowDialogKeyboard("Host (IP-Address):", "", False)
+if host:
+    mc.GetApp().GetLocalConfig().SetValue("host", host)
+    window.GetEdit(300).SetText(host)
+]]>
+					</onclick>
+				</control>
+				
+                <control type="label">
+					<posx>761</posx>
+					<posy>200</posy>
+					<width>190</width>
+					<height>26</height>
+					<font>font25</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>Port:</label>
+					<textcolor>darkgrey</textcolor>
+				</control>
+				
+				<control type="edit" id="301">
+					<posx>761</posx>
+					<posy>230</posy>
+					<width>150</width>
+					<height>69</height>
+                    <onleft>300</onleft>
+                    <onup>-</onup>
+                    <ondown>302</ondown>
+					<label>-</label>
+					<align>center</align>
+					<aligny>center</aligny>
+					<selectedcolor>black</selectedcolor>
+					<textcolor>black</textcolor>
+					<disabledcolor>darkgrey</disabledcolor>
+					<font>font24b</font>
+					<texturefocus border="5">field_on.png</texturefocus>
+					<texturenofocus border="5">field_off.png</texturenofocus>
+					<aspectratio>stretch</aspectratio>
+					<ontextchange></ontextchange>
+					<onclick lang="python">
+<![CDATA[
+port = mc.ShowDialogKeyboard("Port:", "", False)
+if port:
+    mc.GetApp().GetLocalConfig().SetValue("port", port)
+    window.GetEdit(301).SetText(port)
+]]>
+					</onclick>
+				</control>				
+				
+                <control type="label">
+					<posx>390</posx>
+					<posy>300</posy>
+					<width>190</width>
+					<height>26</height>
+					<font>font25</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>ApiKey:</label>
+					<textcolor>darkgrey</textcolor>
+				</control>
+				
+				<control type="edit" id="302">
+					<posx>390</posx>
+					<posy>330</posy>
+					<width>521</width>
+					<height>69</height>
+                    <onup>300</onup>
+                    <ondown>52</ondown>
+					<label>-</label>
+					<align>center</align>
+					<aligny>center</aligny>
+					<selectedcolor>black</selectedcolor>
+					<textcolor>black</textcolor>
+					<disabledcolor>darkgrey</disabledcolor>
+					<font>font24b</font>
+					<texturefocus border="5">field_on.png</texturefocus>
+					<texturenofocus border="5">field_off.png</texturenofocus>
+					<aspectratio>stretch</aspectratio>
+					<ontextchange></ontextchange>
+					<onclick lang="python">
+<![CDATA[
+api = mc.ShowDialogKeyboard("ApiKey:", "", False)
+if api:
+    mc.GetApp().GetLocalConfig().SetValue("api", api)
+    window.GetEdit(302).SetText(api)
+]]>
+					</onclick>
+				</control>				
+
+                <control type="label">
+					<posx>390</posx>
+					<posy>400</posy>
+					<width>190</width>
+					<height>26</height>
+					<font>font25</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>Retention:</label>
+					<textcolor>darkgrey</textcolor>
+				</control>
+
+                <control type="image">
+                        <posx>390</posx>
+                        <posy>430</posy>
+                        <width>521</width>
+                        <height>69</height>
+                        <texture  border="5">field_on.png</texture>
+                        <visible>Control.HasFocus(52)</visible>
+                </control>
+                <control type="image">
+                        <posx>390</posx>
+                        <posy>430</posy>
+                        <width>521</width>
+                        <height>69</height>
+                        <texture  border="5">field_off.png</texture>
+                        <visible>!Control.HasFocus(52)</visible>
+                </control>
+
+				<control type="group" id="7001">
+					<control type="wraplist" id="52">
+						<include>BrowseListAnimation</include>
+						<preloaditems>2</preloaditems>
+						<posx>400</posx>
+						<posy>430</posy>
+						<width>500</width>
+						<height>69</height>
+						<onup>302</onup>
+						<ondown>303</ondown>
+						<scrolltime>400</scrolltime>
+						<pagecontrol>60</pagecontrol>
+										<focusposition>1</focusposition>
+						<orientation>horizontal</orientation>
+						<offsetx>10</offsetx>
+						<offsety>10</offsety>
+										
+						<itemlayout width="200" height="40">
+							<control type="label">
+								<posx>20</posx>
+								<posy>7</posy>
+								<width>190</width>
+								<height>26</height>
+								<font>font20</font>
+								<align>center</align>
+								<aligny>center</aligny>
+								<label>$INFO[ListItem.Label]</label>
+								<textcolor>ff777777</textcolor>
+							</control>
+						</itemlayout>
+
+						<focusedlayout width="200" height="40">
+							<control type="image">
+								<posx>-80</posx>
+								<posy>3</posy>
+								<width>200</width>
+								<height>40</height>
+								<texture>focusrow2.png</texture>
+								<aspectratio>stretch</aspectratio>
+							</control>
+
+							<control type="label">
+								<posx>20</posx>
+								<posy>7</posy>
+								<width>190</width>
+								<height>26</height>
+								<font>font20</font>
+								<align>center</align>
+								<aligny>center</aligny>
+								<label>$INFO[ListItem.Label]</label>
+								<textcolor>ff333333</textcolor>
+							</control>
+						</focusedlayout>
+
+						<content type="url" url="">
+							<onclick></onclick>
+						</content>
+					</control>
+
+                    <control type="button" id="303">
+						<posx>750</posx>
+						<posy>510</posy>
+						<width>160</width>
+						<height>69</height>
+						<label>SAVE</label>
+						<font>font22b</font>
+                        <align>center</align>
+						<aligny>center</aligny>
+						<textcolor>lightgrey</textcolor>
+                        <focusedcolor>black</focusedcolor>
+                        <aspectratio>stretch</aspectratio>
+						<texturefocus border="5">button_on.png</texturefocus>
+						<texturenofocus border="5">button_off.png</texturenofocus>
+                        <onup>52</onup>
+                        <ondown>-</ondown>
+						<onclick lang="python">
+<![CDATA[
+mc.ShowDialogWait()
+list = window.GetList(52)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+
+retentie = listitem.GetPath()
+host = window.GetEdit(300).GetText()
+port = window.GetEdit(301).GetText()
+api = window.GetEdit(302).GetText()
+
+if host == "":
+    mc.ShowDialogOk("Error", "Host provided is invalid!")
+elif port == "":
+    mc.ShowDialogOk("Error", "Port provided is invalid!")
+elif api == "":
+    mc.ShowDialogOk("Error", "ApiKey provided is invalid!")
+else:
+	mc.GetApp().GetLocalConfig().SetValue("retention", retentie)
+	mc.GetApp().GetLocalConfig().SetValue("port", port)
+	mc.GetApp().GetLocalConfig().SetValue("api", api)
+	mc.GetApp().GetLocalConfig().SetValue("host", host)
+	
+mc.HideDialogWait()
+xbmc.executebuiltin("Dialog.Close(16000)")
+mc.ActivateWindow(14444)
+]]>
+                        </onclick>
+					</control>
+				</control>
+		</controls>
+</window>

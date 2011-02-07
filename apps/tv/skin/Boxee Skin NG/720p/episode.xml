@@ -1,0 +1,319 @@
+<!-- Bartsidee Repo - TV Skin App revision: 100 -->
+<?xml version="1.0"?>
+<window type="window" id="14446">
+	<defaultcontrol always="true">51</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<onload lang="python">
+<![CDATA[
+import mc
+from libs import main
+window = mc.GetWindow(14446)
+config = mc.GetApp().GetLocalConfig()
+
+main_obj = main.main_obj()
+]]>
+	</onload> 
+	<controls>
+		<!--<include>Common_Background</include>-->
+		<!-- Background -->
+		<control type="image">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
+            <texture>wallpaper2.jpg</texture>
+        </control>
+		<control type="image">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
+            <texture>background.png</texture>
+        </control>
+		
+		<!-- Top Select -->
+		<control type="group" id="1100">
+			<control type="image">
+				<posx>130</posx>
+				<posy>50</posy>
+				<width>600</width>
+				<height>100</height>
+				<texture>white_gradient.png</texture>
+				<aspctratio>stretch</aspctratio>
+			</control>
+			<control type="image">
+				<posx>140</posx>
+				<posy>60</posy>
+				<width>80</width>
+				<height>80</height>
+				<texture>$INFO[Container(51).ListItem.property(custom:icon)]</texture>
+			</control>	
+			<control type="label">
+				<posx>260</posx>
+				<posy>60</posy>
+				<width>600</width>
+				<height>40</height>
+				<align>left</align>
+				<label>$INFO[Container(51).ListItem.property(custom:module_name)]</label>
+				<font>font26b</font>
+				<textcolor>darkgrey</textcolor>
+			</control>
+			<control type="label">
+				<posx>265</posx>
+				<posy>90</posy>
+				<width>600</width>
+				<height>40</height>
+				<align>left</align>
+				<label>$INFO[Container(51).ListItem.Label]</label>
+				<font>font21b</font>
+				<textcolor>medgrey</textcolor>
+			</control>
+			
+			<control type="image">
+				<posx>1140</posx>
+				<posy>648</posy>
+				<width>100</width>
+				<height>37</height>
+				<texture>page.png</texture>
+				<aspctratio>stretch</aspctratio>
+				<visible>IntegerGreaterThan(Container(51).ListItem.property(custom:totalpage),1)</visible>				
+			</control>
+			<control type="label">
+				<posx>1148</posx>
+				<posy>654</posy>
+				<width>84</width>
+				<height>32</height>
+				<align>center</align>
+				<label>» $INFO[Container(51).ListItem.property(custom:page)]-$INFO[Container(51).ListItem.property(custom:totalpage)]</label>
+				<font>font18b</font>
+				<textcolor>darkgrey</textcolor>
+				<visible>IntegerGreaterThan(Container(51).ListItem.property(custom:totalpage),1)</visible>
+			</control>
+        </control>    
+
+		
+		
+		
+		
+		
+		
+		
+		<!-- SECTION1: LIST -->
+		<control type="group" id="1200">
+			<animation type="WindowOpen" reversible="false">
+				<effect type="slide" start="0,-100" end="0,0" time="400" tween="cubic" easing="out" />
+				<effect type="fade" start="0" end="100" time="400" />
+			</animation>
+			<animation type="WindowClose" reversible="false">
+				<effect type="fade" start="100" end="0" time="400" />
+			</animation>
+			<animation type="Visible" reversible="false">
+				<effect type="slide" start="0,-100" end="0,0" time="400" tween="cubic" easing="out" />
+				<effect type="fade" start="0" end="100" time="400" />
+			</animation>
+			<animation type="Hidden" reversible="false">
+				<effect type="fade" start="100" end="0" time="400" />
+			</animation>
+			
+
+		<control type="fixedlist" id="51">
+			<posx>167</posx>
+			<posy>160</posy>
+			<width>980</width>
+			<height>517</height>
+			<pagecontrol>61</pagecontrol>
+			<scrolltime>0</scrolltime>
+			<orientation>vertical</orientation>
+			<onup lang="python">
+<![CDATA[
+list = window.GetList(51)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+stream_name = listitem.GetLabel()
+stream_id = listitem.GetProperty('stream_id')
+module = listitem.GetProperty('module')
+page = listitem.GetProperty('page')
+totalpage = listitem.GetProperty('totalpage')
+
+if int(page) != 1:
+	newpage = int(page) - 1
+	main_obj.Episode(module, stream_name, stream_id, newpage, totalpage)
+]]>
+            </onup>
+			<ondown lang="python">
+<![CDATA[
+list = window.GetList(51)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+stream_name = listitem.GetLabel()
+stream_id = listitem.GetProperty('stream_id')
+module = listitem.GetProperty('module')
+page = listitem.GetProperty('page')
+totalpage = listitem.GetProperty('totalpage')
+
+if int(page) < int(totalpage):
+	newpage = int(page) + 1
+	main_obj.Episode(module, stream_name, stream_id, newpage, totalpage)
+]]>
+            </ondown>
+			<focusposition>2</focusposition>
+			<itemlayout width="980" height="70">
+				<control type="image">
+					<posx>54</posx>
+					<posy>15</posy>
+					<width>99</width>
+					<height>51</height>
+					<texture background="true" diffuse="episodematte.png">$INFO[ListItem.Thumb]</texture>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+					<animation type="Focus" reversible="false">
+						<effect type="zoom" center="139,82" start="80" end="100" time="400" tween="back" easing="out" />
+						<effect type="fade" start="80" end="100" time="400" />
+					</animation>
+				</control>
+				<control type="image">
+					<posx>50</posx>
+					<posy>10</posy>
+					<width>110</width>
+					<height>60</height>
+					<texture>episodeframe.png</texture>
+					<animation type="Focus" reversible="false">
+						<effect type="zoom" center="139,82" start="80" end="100" time="400" tween="back" easing="out" />
+						<effect type="fade" start="80" end="100" time="400" />
+					</animation>
+				</control>
+				<control type="label">
+					<posx>175</posx>
+					<posy>8</posy>
+					<width>730</width>
+					<height>60</height>
+					<align>left</align>
+					<label>$INFO[ListItem.property(custom:date)]</label>
+					<font>font24b</font>
+					<textcolor>white</textcolor>
+				</control>
+				<control type="label">
+					<posx>200</posx>
+					<posy>31</posy>
+					<width>633</width>
+					<height>60</height>
+					<align>left</align>
+					<label>$INFO[ListItem.Label]</label>
+					<font>font16</font>
+					<textcolor>grey</textcolor>
+				</control>
+				<control type="label">
+					<posx>850</posx>
+					<posy>31</posy>
+					<width>100</width>
+					<height>60</height>
+					<align>left</align>
+					<label>$INFO[ListItem.property(custom:filter)]</label>
+					<font>font18</font>
+					<textcolor>black</textcolor>
+				</control>
+			</itemlayout>
+			<focusedlayout width="980" height="164">
+				<control type="image">
+					<posx>13</posx>
+					<posy>13</posy>
+					<width>253</width>
+					<height>139</height>
+					<texture background="true" diffuse="episodematte.png">$INFO[ListItem.Thumb]</texture>
+					<aspectratio scalediffuse="false">scale</aspectratio>
+					<animation type="Focus" reversible="false">
+						<effect type="zoom" center="139,82" start="80" end="100" time="400" tween="back" easing="out" />
+						<effect type="fade" start="80" end="100" time="400" />
+					</animation>
+				</control>
+				<control type="image">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>278</width>
+					<height>164</height>
+					<texture>episodeframe.png</texture>
+					<animation type="Focus" reversible="false">
+						<effect type="zoom" center="139,82" start="80" end="100" time="400" tween="back" easing="out" />
+						<effect type="fade" start="80" end="100" time="400" />
+					</animation>
+				</control>
+				<control type="label">
+					<posx>292</posx>
+					<posy>10</posy>
+					<width>730</width>
+					<height>30</height>
+					<align>left</align>
+					<label>[UPPERCASE]$INFO[ListItem.Label][/UPPERCASE]</label>
+					<font>font30b</font>
+					<textcolor>darkgrey</textcolor>
+				</control>
+				<control type="label">
+					<posx>292</posx>
+					<posy>40</posy>
+					<width>730</width>
+					<height>30</height>
+					<align>left</align>
+					<label>$INFO[ListItem.property(custom:date)]</label>
+					<font>font24b</font>
+					<textcolor>grey</textcolor>
+				</control>
+				<control type="textbox">
+					<posx>292</posx>
+					<posy>62</posy>
+					<width>610</width>
+					<height>96</height>
+					<align>left</align>
+					<label>$INFO[ListItem.property(custom:desc)]</label>
+					<animation type="Focus" reversible="false">
+						<effect type="fade" start="0" end="100" time="200" />
+					</animation>
+					<autoscroll time="3200" delay="6000" repeat="6000">Skin.HasSetting(autoscroll)</autoscroll>
+					<font>font18</font>
+					<textcolor>white</textcolor>
+				</control>
+			</focusedlayout>
+			<content type="url" url="">
+					<onclick lang="python">
+<![CDATA[
+list = mc.GetWindow(14446).GetList(51)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+stream_name = listitem.GetLabel()
+stream_url = listitem.GetProperty('stream_url')
+module = listitem.GetProperty('module')
+main_obj.Play(module, stream_name, stream_url)
+]]>
+					</onclick>
+				</content>
+			</control>
+		<control type="scrollbar" id="61">
+				<description>Scrollbar</description>
+                <posx>120</posx>
+                <posy>150</posy>
+				<width>30</width>
+				<height>550</height>
+				<orientation>vertical</orientation>
+				<textureslidernib>orb_nofo.png</textureslidernib>
+				<textureslidernibfocus>orb_fo.png</textureslidernibfocus>
+				<pulseonselect>true</pulseonselect>
+				<orientation>vertical</orientation>
+				<showonepage>false</showonepage>
+				<onright>-</onright>
+		</control> 
+
+		</control>
+		
+		
+		<!-- Debug ->
+		<control type="image">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
+            <texture>debug/debuggrid.png</texture>
+        </control>
+		<!-- Debug -->
+	</controls>
+</window>
+
+
+
