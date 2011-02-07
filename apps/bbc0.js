@@ -15,7 +15,7 @@ var btn_x3 = 560;
 
 var hasActive=false;
 var Rescale=false;
-var Subtitle=true;
+var Subtitle=false;
 
 if (boxee.getVersion() > 3.0)
 {

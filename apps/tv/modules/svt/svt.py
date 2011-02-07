@@ -72,7 +72,7 @@ class Module(object):
             play = ba.CreatePlay()
             return play
 		
-	url = 'http://boxee.bartsidee.nl/flow/index.html?net=' + str(domain) + '&id=mp4:' + str(id) + '.mp4'
+	url = 'http://www.bartsidee.nl/flowplayer/index.html?net=' + str(domain) + '&id=mp4:' + str(id) + '.mp4'
         play = ba.CreatePlay()
         play.SetPath(quote_plus(url))
         play.SetDomain('bartsidee.nl')

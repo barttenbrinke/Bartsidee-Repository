@@ -116,6 +116,8 @@ class Module(object):
             play.SetPath(path)
         elif 'mms' in path:
             play.SetPath(path)
+        elif 'rtmp' in path:
+            play.SetPath(path)
         else:
             mc.ShowDialogNotification("Data format currently not supported")
             play.SetPath('')
