@@ -1,0 +1,8 @@
+<repository> 
+	<id>com.bart</id> 
+	<url>http://bartsidee.nl/boxee</url> 
+	<name>Bartsidee Repository</name> 
+	<thumb>http://bartsidee.nl/boxee/thumb.png</thumb> 
+	<description>Official bartsgate.8s.nl repository.</description> 
+</repository>
+	
