@@ -1,6 +1,6 @@
 <repository> 
 	<id>com.bart</id> 
-	<url>http://boxee.bartsidee.nl</url> 
+	<url>http://bartsidee.nl/boxee</url> 
 	<name>Bartsidee Repository</name> 
 	<thumb>http://bartsidee.nl/boxee/thumb.png</thumb> 
 	<description>Official bartsidee repository, home of BartsideeTv and more. www.bartsidee.nl</description> 
