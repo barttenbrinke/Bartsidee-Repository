@@ -27,7 +27,7 @@ class main_obj(object):
         self.Settings()
         self.ImportChannels()
         self.module_path = os.path.join(mc.GetApp().GetAppDir(), 'modules')
-        self.debug = True
+        self.debug = False
         ba.CleanDb(259200, self.db_rm_exclude)
 
     def Settings(self, save=False):
