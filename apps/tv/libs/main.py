@@ -12,7 +12,6 @@ import mc, os, sys, bz2, binascii, ba, xbmc
 from time import time, sleep
 from operator import itemgetter
 import thread
-#from printdict import prnDict
 
 class main_obj(object):
     ##############################################################################
@@ -101,8 +100,8 @@ class main_obj(object):
             search_item.SetModule(module)
             search_item.SetType(self.module_obj[module].type)
             search_item.SetName(self.module_obj[module].name)
-            search_item.SetId(stream.id)
-            search_item.SetEpisode(stream.episode)
+            search_item.SetId(str(stream.id))
+            search_item.SetEpisode(str(stream.episode))
             self.search_db[label] = search_item
 
         mc.GetApp().GetLocalConfig().SetValue('searchdb_' + str(module), str(time()).split('.')[0])
@@ -161,6 +160,7 @@ class main_obj(object):
                 print 'A "Genre Load" error occured for the module: ' + str(module)
                 genrelist = ba.CreateEpisode()
         if len(genrelist) < 1:
+            mc.HideDialogWait()
             return
 
         list = mc.GetWindow(14445).GetList(53)
@@ -236,6 +236,8 @@ class main_obj(object):
             if play.subtitle != '':
                 if play.subtitle_type == 'sami':
                     play.subtitle = ba.ConvertSami(play.subtitle)
+                elif play.subtitle_type == 'flashxml':
+                    play.subtitle = ba.ConvertFlashXML(play.subtitle)
                 sleep(5)
                 xbmc.Player().setSubtitles(str(play.subtitle))
                 print "BARTSIDEE FRAMEWORK: Subtitle added to " + str(stream_name)

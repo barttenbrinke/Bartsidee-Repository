@@ -156,6 +156,51 @@ def ConvertSami(samiurl):
     return subFilePath
 
 #===============================================================================
+# Get SAMI subtitle from string and converts it a tmp srt file, returning the path
+# Input:
+# data - string containing sami subtitle data
+#===============================================================================
+def ConvertFlashXML(path):
+    data = FetchUrl(path)
+    soup = BeautifulSoup(data, convertEntities="xml", smartQuotesTo="xml")
+    i = 1
+    add = 1
+    sync = ''
+    tmp = False
+    for info in soup.findAll("p"):
+        sync += str(i) + '\n'
+
+        timesec1 = str(info['begin'])
+        timesec1 = timesec1.split('.')
+        timesec2 = str(info['end'])
+        timesec2 = timesec2.split('.')
+
+        for tt in [timesec1,timesec2]:
+            if not tmp: tmp = True
+            else: tmp = False
+            hour = (int(tt[0])+add) / 3600
+            minute = ((int(tt[0])+add) - (hour*3600)) / 60
+            sec = (int(tt[0])+add) - (hour*3600) - (minute*60)
+            sync += str(hour) + ':' + str(minute) + ':' + str(sec) + ',' + str(tt[1])
+
+            if tmp: sync += ' --> '
+            else: sync += '\n'
+
+        sync += ConvertASCII(info.renderContents()).replace('\n','').replace('\t','').replace('<br />','\n')
+        sync += '\n' + '\n'
+        i += 1
+
+    tmpPath = mc.GetTempDir()
+    subFilePath = tmpPath+os.sep+'subcache.srt'
+    f = open(subFilePath, "w")
+    f.write(sync)
+    f.close()
+    return subFilePath
+
+
+
+
+#===============================================================================
 # Variable Objects
 #===============================================================================
 class CreateStream:
