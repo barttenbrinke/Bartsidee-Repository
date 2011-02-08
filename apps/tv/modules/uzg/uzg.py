@@ -63,15 +63,20 @@ class Module(object):
 
         episodelist = list()
         for info in soup.findAll('li'):
-            episode = ba.CreateEpisode()
-            episode.SetName(stream_name)
-            episode.SetId(self.url_base + info.h3.a['href'])
-            episode.SetDescription(info.span.contents[0].replace(' ','') + ' - '+ info.p.contents[0])
-            episode.SetThumbnails(info.a.img['src'])
-            episode.SetDate(info.h3.a.contents[0])
-            episode.SetPage(page)
-            episode.SetTotalpage(totalpage)
-            episodelist.append(episode)
+			try: 
+				id = info.h3.a['href']
+			except:
+				id = False
+			if id:
+				episode = ba.CreateEpisode()
+				episode.SetName(stream_name)
+				episode.SetId(self.url_base + id)
+				episode.SetDescription(info.span.contents[0].replace(' ','') + ' - '+ info.p.contents[0])
+				episode.SetThumbnails(info.a.img['src'])
+				episode.SetDate(info.h3.a.contents[0])
+				episode.SetPage(page)
+				episode.SetTotalpage(totalpage)
+				episodelist.append(episode)
 
         return episodelist
 
