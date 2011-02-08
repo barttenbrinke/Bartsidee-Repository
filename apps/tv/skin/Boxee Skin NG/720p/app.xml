@@ -756,7 +756,7 @@ if int(page) < int(totalpage):
                     <control type="label">
 						<posx>100</posx>
 						<posy>14</posy>
-						<width>625</width>
+						<width>525</width>
 						<height>26</height>
 						<font>font22b</font>
 						<align>left</align>
@@ -764,15 +764,15 @@ if int(page) < int(totalpage):
 						<label>$INFO[ListItem.Label]</label>
 						<textcolor>ffffffff</textcolor>
 					</control>
-                    <control type="label">
-						<posx>100</posx>
+					<control type="label">
+						<posx>750</posx>
 						<posy>14</posy>
-						<width>525</width>
+						<width>150</width>
 						<height>26</height>
-						<font>font22b</font>
-						<align>left</align>
+						<font>font22</font>
+						<align>right</align>
 						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label]</label>
+						<label>$INFO[ListItem.property(custom:filter)]</label>
 						<textcolor>ffffffff</textcolor>
 					</control>
 					<control type="label">

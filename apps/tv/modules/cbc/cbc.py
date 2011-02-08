@@ -25,7 +25,8 @@ class Module(object):
         data = ba.FetchUrl(url, 0)
         json_data = json.loads(data)
 
-        streamlist = list
+        streamlist = list()
+        print json_data
         if json_data['searchResults']['numOfResults'] == "":
             return streamlist
 

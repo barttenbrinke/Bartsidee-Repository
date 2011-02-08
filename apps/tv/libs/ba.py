@@ -265,6 +265,9 @@ class CreatePlay:
         self.domain = ''
         self.jsactions = ''
         self.content_type = ''
+        self.rtmpurl = ''
+        self.rtmpdomain = ''
+        self.rtmpauth = ''
 
     def SetPath(self, var=''):
         self.path = var
@@ -283,6 +286,15 @@ class CreatePlay:
 
     def SetContent_type(self, var=''):
         self.content_type = var
+
+    def SetRTMPPath(self, var=''):
+        self.rtmppath = var
+
+    def SetRTMPDomain(self, var=''):
+        self.rtmpdomain = var
+
+    def SetRTMPAuth(self, var=''):
+        self.rtmpauth = var
 
 class SearchData:
     def __init__(self):

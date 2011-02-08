@@ -91,7 +91,6 @@ class Module(object):
         for info in teaser:
             if info.type.contents[0] == 'video':
                 title = info.find('title')
-                title = info.find('title')
                 id = info.find('assetid')
                 airtime = info.find('airtime')
                 airtime = airtime.contents[0]

@@ -27,7 +27,7 @@ class main_obj(object):
         self.Settings()
         self.ImportChannels()
         self.module_path = os.path.join(mc.GetApp().GetAppDir(), 'modules')
-        self.debug = False
+        self.debug = True
         ba.CleanDb(259200, self.db_rm_exclude)
 
     def Settings(self, save=False):
@@ -205,18 +205,26 @@ class main_obj(object):
             content_type = str(play.content_type)
 
         if content_type == "video/x-flv":
-            if play.jsactions == '':
-                path = 'flash://' + str(play.domain) + '/src=' + str(play.path)
-            else:
-                path = 'flash://' + str(play.domain) + '/src=' + str(play.path) + '&bx-jsactions=' + str(play.jsactions)
             player = mc.GetPlayer()
             list_item = mc.ListItem(mc.ListItem.MEDIA_VIDEO_CLIP)
+
+            if play.rtmpdomain != '':
+                list_item.SetPath(str(play.rtmpdomain))
+                list_item.SetProperty("PageURL", str(play.rtmpdomain))
+                list_item.SetProperty("PlayPath", str(play.rtmppath))
+                list_item.SetProperty("TcUrl", str(play.rtmpauth))
+            else:
+                if play.jsactions == '':
+                    path = 'flash://' + str(play.domain) + '/src=' + str(play.path)
+                else:
+                    path = 'flash://' + str(play.domain) + '/src=' + str(play.path) + '&bx-jsactions=' + str(play.jsactions)
+                list_item.SetPath(str(path))
+                
             list_item.SetLabel(str(stream_name))
             list_item.SetTitle(str(stream_name))
-            list_item.SetPath(str(path))
             list_item.SetProviderSource(str(module))
-            list_item.SetReportToServer(True)
-            list_item.SetAddToHistory(True)
+            list_item.SetReportToServer(False)
+            list_item.SetAddToHistory(False)
         else:
             player = mc.GetPlayer()
             list_item = mc.ListItem(mc.ListItem.MEDIA_VIDEO_CLIP)
