@@ -1,4 +1,4 @@
-[{
+{
 	"ard":{"version":1,"path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/modules/"},
 	"bbc":{"version":1,"path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/modules/"},
 	"cbc":{"version":1,"path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/modules/"},
@@ -13,4 +13,4 @@
 	"veronica":{"version":1,"path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/modules/"},
 	"youtube":{"version":1,"path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/modules/"},
 	"zdf":{"version":1,"path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/modules/"}
-}]
+}
