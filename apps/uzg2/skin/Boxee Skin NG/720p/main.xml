@@ -1,0 +1,754 @@
+<?xml version="1.0"?>
+<window type="window" id="14444">
+	<defaultcontrol always="true">10101</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<onload lang="python">
+<![CDATA[
+import mc
+from libs import app
+window = mc.GetWindow(14444)
+config = mc.GetApp().GetLocalConfig()
+
+uzg = app.betaUZG()
+
+sub = config.GetValue('sub')
+if sub == 'True': window.GetToggleButton(10109).SetSelected(True)
+]]>
+	</onload> 
+	<controls>
+		<include>Common_Background</include>
+		<include>Common_Status</include>
+		<control type="image">
+                     <posx>0</posx>
+                     <posy>0</posy>
+                     <width>1280</width>
+                     <height>720</height>
+                     <texture>background-uzg.png</texture>
+                </control>
+
+                <control type="togglebutton" id="10101">
+                    <animation type="Focus">
+                          <effect type="slide" end="-5,0" time="75"/>
+                          <effect type="slide" end="5,0" time="75" delay="75"/>
+                    </animation>
+                    <posx>145</posx>
+                    <posy>197</posy>
+                    <width>141</width>
+                    <height>41</height>
+                    <label>ZOEKEN</label>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <font>font22b</font>
+                    <textcolor>white</textcolor>
+                    <focusedcolor>ff333333</focusedcolor>
+                    <texturefocus>button_focus.png</texturefocus>
+                    <texturenofocus>-</texturenofocus>
+                    <alttexturefocus>button_focus.png</alttexturefocus>
+                    <alttexturenofocus>button_select.png</alttexturenofocus>
+                    <onclick lang="python">
+<![CDATA[
+window.GetToggleButton(10102).SetSelected(False)
+window.GetToggleButton(10103).SetSelected(False)
+window.GetToggleButton(10104).SetVisible(False)
+window.GetToggleButton(10105).SetVisible(False)
+window.GetToggleButton(10106).SetVisible(False)
+window.GetLabel(10108).SetVisible(False)
+window.GetEdit(10107).SetVisible(True)
+window.GetEdit(10107).SetFocus()
+
+mc.GetWindow(14444).GetControl(1200).SetVisible(False)
+mc.GetWindow(14444).GetControl(1201).SetVisible(False)
+
+]]>
+                    </onclick>
+                    <altclick lang="python">
+<![CDATA[
+window.GetToggleButton(10101).SetSelected(True)
+window.GetToggleButton(10104).SetVisible(False)
+window.GetToggleButton(10105).SetVisible(False)
+window.GetToggleButton(10106).SetVisible(False)
+window.GetLabel(10108).SetVisible(False)
+window.GetEdit(10107).SetVisible(True)
+window.GetEdit(10107).SetFocus()
+
+mc.GetWindow(14444).GetControl(1200).SetVisible(False)
+mc.GetWindow(14444).GetControl(1201).SetVisible(False)
+]]>
+                    </altclick>
+                    <onleft>10101</onleft>
+                    <onright>10102</onright>
+                    <ondown lang="python">
+<![CDATA[   
+if window.GetControl(1200).IsVisible(): window.GetControl(51).SetFocus()
+if window.GetControl(1201).IsVisible(): window.GetControl(52).SetFocus()
+]]>
+                    </ondown>
+		</control>
+                <control type="togglebutton" id="10102">
+                    <animation type="Focus">
+                          <effect type="slide" end="-5,0" time="75"/>
+                          <effect type="slide" end="5,0" time="75" delay="75"/>
+                    </animation>
+                    <posx>294</posx>
+                    <posy>197</posy>
+                    <width>141</width>
+                    <height>41</height>
+                    <label>VANDAAG</label>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <font>font22b</font>
+                    <textcolor>white</textcolor>
+                    <focusedcolor>ff333333</focusedcolor>
+                    <texturefocus>button_focus.png</texturefocus>
+                    <texturenofocus>-</texturenofocus>
+                    <alttexturefocus>button_focus.png</alttexturefocus>
+                    <alttexturenofocus>button_select.png</alttexturenofocus>
+                    <onclick lang="python">
+<![CDATA[
+window.GetToggleButton(10101).SetSelected(False)
+window.GetToggleButton(10103).SetSelected(False)
+window.GetToggleButton(10104).SetVisible(True)
+window.GetToggleButton(10105).SetVisible(True)
+window.GetToggleButton(10106).SetVisible(True)
+window.GetEdit(10107).SetVisible(False)
+window.GetLabel(10108).SetVisible(True)
+
+mc.GetWindow(14444).GetControl(1200).SetVisible(False)
+mc.GetWindow(14444).GetControl(1201).SetVisible(False)
+
+window.GetToggleButton(10104).SetSelected(False)
+window.GetToggleButton(10105).SetSelected(False)
+window.GetToggleButton(10106).SetSelected(False)
+
+uzg.GetRecent('vandaag')
+]]>
+                    </onclick>
+                    <altclick lang="python">
+<![CDATA[
+window.GetToggleButton(10102).SetSelected(True)
+window.GetToggleButton(10104).SetVisible(True)
+window.GetToggleButton(10105).SetVisible(True)
+window.GetToggleButton(10106).SetVisible(True)
+window.GetEdit(10107).SetVisible(False)
+window.GetLabel(10108).SetVisible(True)
+
+mc.GetWindow(14444).GetControl(1200).SetVisible(False)
+mc.GetWindow(14444).GetControl(1201).SetVisible(False)
+
+window.GetToggleButton(10104).SetSelected(False)
+window.GetToggleButton(10105).SetSelected(False)
+window.GetToggleButton(10106).SetSelected(False)
+
+uzg.GetRecent('vandaag')
+]]>
+                    </altclick>
+                    <onleft>10101</onleft>
+                    <onright>10103</onright>
+                    <ondown lang="python">
+<![CDATA[
+if window.GetControl(1200).IsVisible(): window.GetControl(51).SetFocus()
+if window.GetControl(1201).IsVisible(): window.GetControl(52).SetFocus()
+]]>
+                    </ondown>
+		</control>
+                <control type="togglebutton" id="10103">
+                    <animation type="Focus">
+                          <effect type="slide" end="-5,0" time="75"/>
+                          <effect type="slide" end="5,0" time="75" delay="75"/>
+                    </animation>
+                    <posx>443</posx>
+                    <posy>197</posy>
+                    <width>141</width>
+                    <height>41</height>
+                    <label>GISTEREN</label>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <font>font22b</font>
+                    <textcolor>white</textcolor>
+                    <focusedcolor>ff333333</focusedcolor>
+                    <texturefocus>button_focus.png</texturefocus>
+                    <texturenofocus>-</texturenofocus>
+                    <alttexturefocus>button_focus.png</alttexturefocus>
+                    <alttexturenofocus>button_select.png</alttexturenofocus>
+                    <onclick lang="python">
+<![CDATA[
+window.GetToggleButton(10101).SetSelected(False)
+window.GetToggleButton(10102).SetSelected(False)
+window.GetToggleButton(10104).SetVisible(True)
+window.GetToggleButton(10105).SetVisible(True)
+window.GetToggleButton(10106).SetVisible(True)
+window.GetEdit(10107).SetVisible(False)
+window.GetLabel(10108).SetVisible(True)
+
+mc.GetWindow(14444).GetControl(1200).SetVisible(False)
+mc.GetWindow(14444).GetControl(1201).SetVisible(False)
+
+window.GetToggleButton(10104).SetSelected(False)
+window.GetToggleButton(10105).SetSelected(False)
+window.GetToggleButton(10106).SetSelected(False)
+
+uzg.GetRecent('gisteren')
+]]>
+                    </onclick>
+                    <altclick lang="python">
+<![CDATA[
+window.GetToggleButton(10103).SetSelected(True)
+window.GetToggleButton(10104).SetVisible(True)
+window.GetToggleButton(10105).SetVisible(True)
+window.GetToggleButton(10106).SetVisible(True)
+window.GetEdit(10107).SetVisible(False)
+window.GetLabel(10108).SetVisible(True)
+
+mc.GetWindow(14444).GetControl(1200).SetVisible(False)
+mc.GetWindow(14444).GetControl(1201).SetVisible(False)
+
+window.GetToggleButton(10104).SetSelected(False)
+window.GetToggleButton(10105).SetSelected(False)
+window.GetToggleButton(10106).SetSelected(False)
+
+uzg.GetRecent('gisteren')
+]]>
+                    </altclick>
+                    <onleft>10102</onleft>
+                    <onright lang="python">
+<![CDATA[
+if window.GetControl(10107).IsVisible(): window.GetControl(10107).SetFocus()
+if window.GetControl(10104).IsVisible(): window.GetControl(10104).SetFocus()
+]]>
+                    </onright>
+                    <ondown lang="python">
+<![CDATA[
+if window.GetControl(1200).IsVisible(): window.GetControl(51).SetFocus()
+if window.GetControl(1201).IsVisible(): window.GetControl(52).SetFocus()
+]]>
+                    </ondown>
+		</control>
+
+                <control type="label" id="10108">
+                    <animation type="Visible">
+                          <effect type="fade" time="75"/>
+                    </animation>
+                    <visible>False</visible>
+                    <posx>815</posx>
+                    <posy>198</posy>
+                    <width>70</width>
+                    <height>41</height>
+                    <label>FILTER:</label>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <font>font14b</font>
+                    <textcolor>white</textcolor>
+		</control>
+                <control type="togglebutton" id="10104">
+                    <animation type="Visible">
+                          <effect type="fade" time="75"/>
+                    </animation>
+                    <visible>False</visible>
+                    <posx>895</posx>
+                    <posy>197</posy>
+                    <width>41</width>
+                    <height>41</height>
+                    <label></label>
+                    <texturefocus>nl1_focus.png</texturefocus>
+                    <texturenofocus>nl1.png</texturenofocus>
+                    <alttexturefocus>nl1_focus.png</alttexturefocus>
+                    <alttexturenofocus>nl1_select.png</alttexturenofocus>
+                    <onclick lang="python">
+<![CDATA[
+net = ""
+if window.GetToggleButton(10104).IsSelected(): net = net + ',nl1'
+if window.GetToggleButton(10105).IsSelected(): net = net + ',nl2'
+if window.GetToggleButton(10106).IsSelected(): net = net + ',nl3'
+uzg.GetRecent('gisteren', net)
+]]>
+                    </onclick>
+                    <altclick lang="python">
+<![CDATA[
+net = ""
+if window.GetToggleButton(10104).IsSelected(): net = net + ',nl1'
+if window.GetToggleButton(10105).IsSelected(): net = net + ',nl2'
+if window.GetToggleButton(10106).IsSelected(): net = net + ',nl3'
+uzg.GetRecent('gisteren', net)
+]]>
+                    </altclick>
+                    <onleft>10103</onleft>
+                    <onright>10105</onright>
+                    <ondown lang="python">
+<![CDATA[
+if window.GetControl(1200).IsVisible(): window.GetControl(51).SetFocus()
+if window.GetControl(1201).IsVisible(): window.GetControl(52).SetFocus()
+]]>
+                    </ondown>
+		</control>
+                <control type="togglebutton" id="10105">
+                    <animation type="Visible">
+                          <effect type="fade" time="75"/>
+                    </animation>
+                    <visible>False</visible>
+                    <posx>945</posx>
+                    <posy>197</posy>
+                    <width>41</width>
+                    <height>41</height>
+                    <label></label>
+                    <texturefocus>nl2_focus.png</texturefocus>
+                    <texturenofocus>nl2.png</texturenofocus>
+                    <alttexturefocus>nl2_focus.png</alttexturefocus>
+                    <alttexturenofocus>nl2_select.png</alttexturenofocus>
+                    <onclick lang="python">
+<![CDATA[
+net = ""
+if window.GetToggleButton(10104).IsSelected(): net = net + ',nl1'
+if window.GetToggleButton(10105).IsSelected(): net = net + ',nl2'
+if window.GetToggleButton(10106).IsSelected(): net = net + ',nl3'
+uzg.GetRecent('gisteren', net)
+]]>
+                    </onclick>
+                    <altclick lang="python">
+<![CDATA[
+net = ""
+if window.GetToggleButton(10104).IsSelected(): net = net + ',nl1'
+if window.GetToggleButton(10105).IsSelected(): net = net + ',nl2'
+if window.GetToggleButton(10106).IsSelected(): net = net + ',nl3'
+uzg.GetRecent('gisteren', net)
+]]>
+                    </altclick>
+                    <onleft>10104</onleft>
+                    <onright>10106</onright>
+                    <ondown lang="python">
+<![CDATA[
+if window.GetControl(1200).IsVisible(): window.GetControl(51).SetFocus()
+if window.GetControl(1201).IsVisible(): window.GetControl(52).SetFocus()
+]]>
+                    </ondown>
+		</control>
+                <control type="togglebutton" id="10106">
+                    <animation type="Visible">
+                          <effect type="fade" time="75"/>
+                    </animation>
+                    <visible>False</visible>
+                    <posx>995</posx>
+                    <posy>197</posy>
+                    <width>41</width>
+                    <height>41</height>
+                    <label></label>
+                    <texturefocus>nl3_focus.png</texturefocus>
+                    <texturenofocus>nl3.png</texturenofocus>
+                    <alttexturefocus>nl3_focus.png</alttexturefocus>
+                    <alttexturenofocus>nl3_select.png</alttexturenofocus>
+                    <onclick lang="python">
+<![CDATA[
+net = ""
+if window.GetToggleButton(10104).IsSelected(): net = net + ',nl1'
+if window.GetToggleButton(10105).IsSelected(): net = net + ',nl2'
+if window.GetToggleButton(10106).IsSelected(): net = net + ',nl3'
+uzg.GetRecent('gisteren', net)
+]]>
+                    </onclick>
+                    <altclick lang="python">
+<![CDATA[
+net = ""
+if window.GetToggleButton(10104).IsSelected(): net = net + ',nl1'
+if window.GetToggleButton(10105).IsSelected(): net = net + ',nl2'
+if window.GetToggleButton(10106).IsSelected(): net = net + ',nl3'
+uzg.GetRecent('gisteren', net)
+]]>
+                    </altclick>
+                    <onleft>10105</onleft>
+                    <onright>10109</onright>
+                    <ondown lang="python">
+<![CDATA[
+if window.GetControl(1200).IsVisible(): window.GetControl(51).SetFocus()
+if window.GetControl(1201).IsVisible(): window.GetControl(52).SetFocus()
+]]>
+                    </ondown>
+		</control>
+                <control type="togglebutton" id="10109">
+                    <posx>1071</posx>
+                    <posy>197</posy>
+                    <width>70</width>
+                    <height>41</height>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <font>font14b</font>
+                    <textcolor>white</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <altfocusedcolor>white</altfocusedcolor>
+                    <texturefocus>subtitles_focus_off.png</texturefocus>
+                    <texturenofocus>subtitles_off.png</texturenofocus>
+                    <alttexturefocus>subtitles_focus_on.png</alttexturefocus>
+                    <alttexturenofocus>subtitles_on.png</alttexturenofocus>
+                    <onclick lang="python">
+<![CDATA[
+config.SetValue('sub', 'True')
+]]>
+                    </onclick>
+                    <altclick lang="python">
+<![CDATA[
+config.SetValue('sub', 'False')
+]]>
+                    </altclick>
+                    <onleft>10106</onleft>
+                    <onright>10109</onright>
+                    <ondown lang="python">
+<![CDATA[
+if window.GetControl(1200).IsVisible(): window.GetControl(51).SetFocus()
+if window.GetControl(1201).IsVisible(): window.GetControl(52).SetFocus()
+]]>
+                    </ondown>
+		</control>
+
+                <control type="edit" id="10107">
+                    <animation type="Visible">
+                          <effect type="fade" time="75"/>
+                    </animation>
+                    <visible>False</visible>
+                    <posx>645</posx>
+                    <posy>195</posy>
+                    <width>411</width>
+                    <height>44</height>
+                    <onleft>10103</onleft>
+                    <onright>10109</onright>
+                    <onup>-</onup>
+                    <ondown lang="python">
+<![CDATA[
+if window.GetControl(1200).IsVisible(): window.GetControl(51).SetFocus()
+if window.GetControl(1201).IsVisible(): window.GetControl(52).SetFocus()
+]]>
+                    </ondown>
+                    <onnext>-</onnext>
+                    <onprev>-</onprev>
+                    <label>-</label>
+                    <textoffsetx>8</textoffsetx>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>ff555555</textcolor>
+                    <focusedcolor>ff333333</focusedcolor>
+                    <texturefocus border="5">search_focus.png</texturefocus>
+                    <texturenofocus border="5">search.png</texturenofocus>
+                    <aspectratio>keep</aspectratio>
+                    <disabledcolor>darkgrey</disabledcolor>
+                    <ontextchange lang="python">
+<![CDATA[
+search = mc.GetWindow(14444).GetEdit(10107).GetText()
+if len(search) > 0:
+    uzg.GetShow(str(search))
+]]>
+                    </ontextchange>
+                    <onclick lang="python">
+<![CDATA[
+search = mc.ShowDialogKeyboard("Uitzending Zoeken", mc.GetWindow(14444).GetEdit(10107).GetText(), False)
+if len(search) > 0:
+    mc.GetWindow(14444).GetEdit(10107).SetText(search)
+    uzg.GetShow(str(search))
+]]>
+                    </onclick>
+                </control>
+
+
+
+
+		<control type="group" id="1200">
+			<animation type="Conditional" condition="Window.IsVisible(DialogProgress.xml)">
+				<effect type="fade" start="100" end="20" time="200"/>
+			</animation>
+
+			<control type="panel" id="51">
+				<include>BrowseListAnimation</include>
+				<preloaditems>2</preloaditems>
+				<posx>140</posx>
+				<posy>285</posy>
+				<width>1150</width>
+				<height>370</height>
+				<onleft>10101</onleft>
+				<onright>10101</onright>
+				<onup>10101</onup>
+				<ondown>-</ondown>
+				<scrolltime>400</scrolltime>
+				<pagecontrol>60</pagecontrol>
+				<orientation>vertical</orientation>
+				<offsetx>4</offsetx>
+				<offsety>4</offsety>
+
+				<itemlayout width="1030" height="60">
+                                        <control type="label">
+						<posx>5</posx>
+						<posy>17</posy>
+						<width>460</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>ff888888</textcolor>
+					</control>
+				</itemlayout>
+
+				<focusedlayout width="1030" height="60">
+ 					<control type="image">
+						 <posx>0</posx>
+						 <posy>10</posy>
+						 <width>900</width>
+						 <height>50</height>
+						 <texture>focusrow3.png</texture>
+					</control>
+					<control type="label">
+						<posx>5</posx>
+						<posy>17</posy>
+						<width>460</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+					</control>
+				</focusedlayout>
+				<content type="url" url="">
+					<onclick lang="python">
+<![CDATA[
+list = mc.GetWindow(14444).GetList(51)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+labelid = listitem.GetLabel()
+pathid = listitem.GetPath()
+uzg.GetEpisode(pathid, labelid)
+]]>
+					</onclick>
+				</content>
+                            </control>
+                            <control type="scrollbar" id="60">
+                                    <posx>1126</posx>
+                                    <posy>285</posy>
+                                    <width>16</width>
+                                    <height>354</height>
+                                    <texturesliderbackground>scrollbar_bg.png</texturesliderbackground>
+                                    <textureslidernib>scrollbar_slider.png</textureslidernib>
+                                    <textureslidernibfocus>scrollbar_slider.png</textureslidernibfocus>
+                                    <texturesliderbar>-</texturesliderbar>
+                                    <texturesliderbarfocus>-</texturesliderbarfocus>
+                                    <orientation>vertical</orientation>
+                                    <showonepage>false</showonepage>
+                                    <aspectratio>stretch</aspectratio>
+                            </control>
+                </control>
+                
+                <control type="group" id="1201">
+			<animation type="Conditional" condition="Window.IsVisible(DialogProgress.xml)">
+				<effect type="fade" start="100" end="20" time="200"/>
+			</animation>
+
+                        <control type="panel" id="52">
+				<include>BrowseListAnimation</include>
+				<preloaditems>2</preloaditems>
+				<posx>140</posx>
+				<posy>285</posy>
+				<width>1150</width>
+				<height>370</height>
+				<onleft>10101</onleft>
+				<onright>10101</onright>
+				<onup lang="python">
+<![CDATA[
+list = mc.GetWindow(14444).GetList(52)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+id = listitem.GetProperty('id')
+title = listitem.GetLabel()
+page = listitem.GetProperty('page')
+totalpage = listitem.GetProperty('totalpage')
+net = listitem.GetProperty('net')
+if int(page) != 1:
+    newpage = int(page) - 1
+    pathid = listitem.GetPath()
+    if window.GetToggleButton(10101).IsSelected(): uzg.GetEpisode(id, title, str(newpage), totalpage)
+    if window.GetToggleButton(10102).IsSelected(): uzg.GetRecent('vandaag', net, str(newpage), totalpage)
+    if window.GetToggleButton(10103).IsSelected(): uzg.GetRecent('gisteren', net, str(newpage), totalpage)
+else:
+    window.GetControl(10101).SetFocus()
+]]>
+                                </onup>
+				<ondown lang="python">
+<![CDATA[
+list = mc.GetWindow(14444).GetList(52)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+id = listitem.GetProperty('id')
+title = listitem.GetLabel()
+page = listitem.GetProperty('page')
+totalpage = listitem.GetProperty('totalpage')
+net = listitem.GetProperty('net')
+if int(page) < int(totalpage):
+    newpage = int(page) + 1
+    pathid = listitem.GetPath()
+    if window.GetToggleButton(10101).IsSelected(): uzg.GetEpisode(id, title, str(newpage), totalpage)
+    if window.GetToggleButton(10102).IsSelected(): uzg.GetRecent('vandaag', net, str(newpage), totalpage)
+    if window.GetToggleButton(10103).IsSelected(): uzg.GetRecent('gisteren', net, str(newpage), totalpage)
+]]>
+                                </ondown>
+				<scrolltime>400</scrolltime>
+				<pagecontrol>61</pagecontrol>
+				<orientation>vertical</orientation>
+				<offsetx>4</offsetx>
+				<offsety>4</offsety>
+
+				<itemlayout width="1030" height="120">
+                                    	<control type="image">
+						 <posx>5</posx>
+						 <posy>15</posy>
+						 <width>140</width>
+						 <height>79</height>
+						 <texture>$INFO[ListItem.Thumb]</texture>
+                                                 <aspectratio>stretch</aspectratio>
+					</control>
+                                        <control type="label">
+						<posx>165</posx>
+						<posy>17</posy>
+						<width>760</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]: $INFO[ListItem.property(custom:date)]</label>
+						<textcolor>ff888888</textcolor>
+					</control>
+                                        <control type="label">
+						<posx>165</posx>
+						<posy>45</posy>
+						<width>760</width>
+						<height>75</height>
+						<font>font18</font>
+						<align>left</align>
+						<aligny>top</aligny>
+						<label>$INFO[ListItem.property(custom:desc)]</label>
+						<textcolor>ff888888</textcolor>
+                                                <wrapmultiline>true</wrapmultiline>
+					</control>
+                                                                                <control type="label">
+                                                <visible>!IsEmpty(ListItem.property(custom:views))</visible>
+						<posx>970</posx>
+						<posy>17</posy>
+						<width>760</width>
+						<height>26</height>
+						<font>font13b</font>
+						<align>right</align>
+						<aligny>center</aligny>
+						<label>» $INFO[ListItem.property(custom:views)]</label>
+						<textcolor>ffefefef</textcolor>
+					</control>
+                                        <control type="image">
+                                                <visible>!IsEmpty(ListItem.property(custom:omroep))</visible>
+						 <posx>920</posx>
+						 <posy>40</posy>
+						 <width>41</width>
+						 <height>41</height>
+						 <texture>$INFO[ListItem.property(custom:omroep)]</texture>
+                                                 <aspectratio>stretch</aspectratio>
+					</control>
+				</itemlayout>
+
+				<focusedlayout width="1030" height="120">
+                                        <control type="image">
+						 <posx>0</posx>
+						 <posy>0</posy>
+						 <width>975</width>
+						 <height>120</height>
+						 <texture>focusrow3.png</texture>
+					</control>
+                                    	<control type="image">
+						 <posx>5</posx>
+						 <posy>11</posy>
+						 <width>154</width>
+						 <height>87</height>
+						 <texture>$INFO[ListItem.Thumb]</texture>
+                                                 <aspectratio>stretch</aspectratio>
+					</control>
+                                        <control type="label">
+						<posx>165</posx>
+						<posy>17</posy>
+						<width>760</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]: $INFO[ListItem.property(custom:date)]</label>
+						<textcolor>white</textcolor>
+					</control>
+                                        <control type="label">
+						<posx>165</posx>
+						<posy>45</posy>
+						<width>760</width>
+						<height>75</height>
+						<font>font18</font>
+						<align>left</align>
+						<aligny>top</aligny>
+						<label>$INFO[ListItem.property(custom:desc)]</label>
+						<textcolor>ffefefef</textcolor>
+                                                <wrapmultiline>true</wrapmultiline>
+					</control>
+                                        <control type="label">
+                                                <visible>!IsEmpty(ListItem.property(custom:views))</visible>
+						<posx>970</posx>
+						<posy>17</posy>
+						<width>760</width>
+						<height>26</height>
+						<font>font13b</font>
+						<align>right</align>
+						<aligny>center</aligny>
+						<label>» $INFO[ListItem.property(custom:views)]</label>
+						<textcolor>ffefefef</textcolor>
+					</control>
+                                    	<control type="image">
+                                                <visible>!IsEmpty(ListItem.property(custom:omroep))</visible>
+						 <posx>920</posx>
+						 <posy>40</posy>
+						 <width>41</width>
+						 <height>41</height>
+						 <texture>$INFO[ListItem.property(custom:omroep)]</texture>
+                                                 <aspectratio>stretch</aspectratio>
+					</control>
+				</focusedlayout>
+					
+				<content type="url" url="">
+					<onclick lang="python">
+<![CDATA[
+list = mc.GetWindow(14444).GetList(52)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+labelid = listitem.GetLabel() + ':' + listitem.GetProperty('date')
+pathid = listitem.GetPath()
+uzg.GetStream(pathid, labelid)
+]]>
+					</onclick>
+				</content>
+			</control>
+                        <control type="scrollbar" id="61">
+                            <posx>1126</posx>
+                            <posy>295</posy>
+                            <width>16</width>
+                            <height>354</height>
+                            <texturesliderbackground >scrollbar_bg.png</texturesliderbackground>
+                            <textureslidernib>scrollbar_slider.png</textureslidernib>
+                            <textureslidernibfocus>scrollbar_slider.png</textureslidernibfocus>
+                            <texturesliderbar>-</texturesliderbar>
+                            <texturesliderbarfocus>-</texturesliderbarfocus>
+                            <orientation>vertical</orientation>
+                            <showonepage>false</showonepage>
+                            <aspectratio>stretch</aspectratio>
+                        </control>
+                </control>
+                        <control type="label" id="62">
+                            <visible>Control.HasFocus(52)</visible>
+                            <posx>1020</posx>
+                            <posy>660</posy>
+                            <width>200</width>
+                            <height>50</height>
+                            <font>font14b</font>
+                            <align>left</align>
+                            <aligny>top</aligny>
+                            <label>Pagina: $INFO[Container(52).ListItem.property(custom:page)] van $INFO[Container(52).ListItem.property(custom:totalpage)]</label>
+                            <textcolor>ff999999</textcolor>
+                        </control>
+	</controls>
+</window>
+
+
+
