@@ -10,6 +10,7 @@ from libs import main, ba
 window = mc.GetWindow(14444)
 config = mc.GetApp().GetLocalConfig()
 index = 0
+mc.GetWindow(14446).ClearStateStack(False)
 
 window.GetToggleButton(10101).SetSelected(True)
 

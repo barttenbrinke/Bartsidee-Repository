@@ -278,9 +278,14 @@ list = mc.GetWindow(14446).GetList(51)
 listitems = list.GetItems()
 listitem = listitems[list.GetFocusedItem()]
 stream_name = listitem.GetLabel()
-stream_url = listitem.GetProperty('stream_url')
 module = listitem.GetProperty('module')
-main_obj.Play(module, stream_name, stream_url)
+episode = listitem.GetProperty('episode')
+stream_url = listitem.GetProperty('stream_url')
+if episode == 'True':
+	window.PushState()
+	main_obj.Episode(module, stream_name, stream_url)
+else:
+	main_obj.Play(module, stream_name, stream_url)
 ]]>
 					</onclick>
 				</content>

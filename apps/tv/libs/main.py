@@ -26,12 +26,13 @@ class main_obj(object):
         self.search_dynamic = []
         self.db_rm_exclude = ['searchdb', 'settings', 'search_history']
         self.source = 'https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/modules/'
+        self.source_dev = 'https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/'
         self.module_path = os.path.join(mc.GetApp().GetAppDir(), 'modules')
         sys.path.append(self.module_path)
 
+        self.debug = False
         self.Settings()
         self.Check_Modules()
-        self.debug = False
         ba.CleanDb(259200, self.db_rm_exclude)
         
     def Settings(self, save=False):
@@ -69,7 +70,11 @@ class main_obj(object):
 
     def Check_Modules(self):
         #Get online modules
-        data = ba.FetchUrl(self.source + 'modules.json')
+        if self.debug:
+            data = ba.FetchUrl(self.source_dev + 'modules.json')
+            print "using dev source"
+        else:
+            data = ba.FetchUrl(self.source + 'modules.json')
         online_data = json.loads(data)
         self.settings['modules_online'] = online_data
 
@@ -98,29 +103,42 @@ class main_obj(object):
             except:
                 online = -1
             if online > local:
+                self.remove_folder(module, local)
                 url = online_data[module]['path']
                 self.download_module(url, module, online)
             elif local != online:
-                if local > 0:
-                    shutil.rmtree(os.path.join(self.module_path, module+'-'+str(local)))
-                else:
-                    shutil.rmtree(os.path.join(self.module_path, module))
+                self.remove_folder(module, local)
             self.ImportModule(module, online)
 
         #Clean directory
         for module in local_data.keys():
-            local = local_data[module]['version']
-            online = online_data[module]['version']
+            try:
+                local = local_data[module]['version']
+            except:
+                local = -1
+            try:
+                online = online_data[module]['version']
+            except:
+                online = -1
             if module not in online_data.keys() or module not in modules_load:
-                if local > 0:
-                    shutil.rmtree(os.path.join(self.module_path, module+'-'+str(local)))
-                else:
-                    shutil.rmtree(os.path.join(self.module_path, module))
+                self.remove_folder(module, local)
 
         print 'BARTSIDEE FRAMEWORK: Modules loaded and refreshed'
 
+    def remove_folder(self, module, version):
+        if version > 0:
+            try:
+                shutil.rmtree(os.path.join(self.module_path, module+'-'+str(version)))
+            except:
+                print 'BARTSIDEE FRAMEWORK: Error removing old module:' +module+str(version)
+        else:
+            try:
+                shutil.rmtree(os.path.join(self.module_path, module))
+            except:
+                print 'BARTSIDEE FRAMEWORK: Error removing old module:'+module+str(version)
+
     def download_module(self, url, name, version):
-        mc.ShowDialogNotification("Downloading module '"+name+"' from the server: Please wait...")
+        mc.ShowDialogNotification("Downloading module '"+name+"' from the server: \n Please wait...")
         dir_path = os.path.join(self.module_path, name+'-'+str(version))
         img_path = os.path.join(dir_path, name+'.png')
         py_path = os.path.join(dir_path, name+'.py')
@@ -156,21 +174,25 @@ class main_obj(object):
     def ImportModule(self, module, version):
         sys.path.append(self.module_path)
         importstring = module +'-'+str(version)+ '.' + module
-        mod = __import__(importstring)
-        components = importstring.split('.')
-        for comp in components[1:]:
-            mod = getattr(mod, comp)
-        self.module[module] = mod
-        self.module_obj[module] = self.module[module].Module()
-        self.db_rm_exclude.append('searchdb_'+ module)
-        self.settings['modules_loaded'].append(module)
+        try:
+            mod = __import__(importstring)
+            components = importstring.split('.')
+            for comp in components[1:]:
+                mod = getattr(mod, comp)
+            self.module[module] = mod
+            self.module_obj[module] = self.module[module].Module()
+            self.db_rm_exclude.append('searchdb_'+ module)
+            self.settings['modules_loaded'].append(module)
+        except:
+            self.remove_folder(module, version)
+            self.Check_Modules()
 
     ##############################################################################
     ######   Module Management
     ##############################################################################
     def List(self, module):
         mc.ShowDialogWait()
-        mc.ShowDialogNotification("Loading module '"+module+"' into the database: Please wait...")
+        mc.ShowDialogNotification("Loading module '"+module+"' into the database: \n Please wait...")
         if self.debug:
             streamlist = self.module_obj[module].List()
         else:
@@ -210,7 +232,6 @@ class main_obj(object):
             mc.HideDialogWait()
             return
         
-        mc.GetWindow(14446).ClearStateStack(False)
         mc.ActivateWindow(14446)
         list = mc.GetWindow(14446).GetList(51)
         list_items = mc.ListItems()
@@ -219,12 +240,16 @@ class main_obj(object):
             version = self.settings['modules_online'][module]['version']
             list_item = mc.ListItem(mc.ListItem.MEDIA_UNKNOWN)
             list_item.SetLabel(ba.ConvertASCII(episode.name))
-            list_item.SetThumbnail(str(episode.thumbnails))
+            if episode.thumbnails == '':
+                list_item.SetThumbnail(str('nothumb.png'))
+            else:
+                list_item.SetThumbnail(str(episode.thumbnails))
             list_item.SetProperty('icon', str(os.path.join(self.module_path, module+'-'+str(version), module + '.png')))
             list_item.SetProperty('stream_id', str(stream_id))
             list_item.SetProperty('stream_url', str(binascii.hexlify(episode.id)))
             list_item.SetProperty('module_name', str(self.module_obj[module].name))
             list_item.SetProperty('date', str(ba.ConvertASCII(episode.date)))
+            list_item.SetProperty('episode', str(episode.episode))
             list_item.SetProperty('desc', str(ba.ConvertASCII(episode.description)))
             list_item.SetProperty('module', str(module))
             list_item.SetProperty('page', str(episode.page))
@@ -525,7 +550,7 @@ class main_obj(object):
         list = mc.GetWindow(14444).GetList(54)
         list_items = mc.ListItems()
 
-        options = {"subtitle":"Enable subtitles if available...","clear":"Clear the database"}
+        options = {"subtitle":"Subtitles On/Off","clear":"Clear the database"}
         for key in options.keys():
             list_item = mc.ListItem(mc.ListItem.MEDIA_UNKNOWN)
             list_item.SetLabel(options[key])

@@ -2,7 +2,6 @@ import mc, re, os, sys
 sys.path.append(os.path.join(mc.GetApp().GetAppDir(), 'libs'))
 import ba
 from urllib import quote_plus
-from itertools import izip
 from urllib2 import *
 import csv
 
@@ -48,27 +47,31 @@ class Module(object):
 
         episodelist = list()
         if len(data) < 1:
-            mc.ShowDialogNotification("1. No episode found for " + str(stream_name))
+            mc.ShowDialogNotification("No supported types found: " + str(stream_name))
             return episodelist
 
         for item in data:
-            if ("type" and "URL" and "thumb") in item.keys():
-                keys = self.support.keys()
-                if item['type'] in keys:
+            if ("type" and "URL") in item.keys():
+                if item['type'] in self.support.keys():
                     episode = ba.CreateEpisode()
                     episode.SetName(self.support[item['type']] + re.sub("(\[.*?\])", '', item['name']))
-                    try: episode.SetId(item['URL'] + '|' + item['processor'])
-                    except: episode.SetId(item['URL'])
-                    episode.SetThumbnails(item['thumb'])
+                    try: episode.SetThumbnails(item['thumb'])
+                    except:episode.SetThumbnails('')
                     try: episode.SetDescription(item['description'])
                     except: """"""
+                    if item['type'] == 'playlist':
+                        episode.SetEpisode('True')
+                        episode.SetId(item['URL'])
+                    else:
+                        try: episode.SetId(item['URL'] + '|' + item['processor'])
+                        except: episode.SetId(item['URL'])
                     episode.SetPage(page)
                     episode.SetTotalpage(totalpage)
                     episodelist.append(episode)
 
         if len(episodelist) < 1 :
-            mc.ShowDialogNotification("No nested playlists supported: " + str(stream_name))
-            return
+            mc.ShowDialogNotification("No supported types found: " + str(stream_name))
+            return episodelist
 
         return episodelist
 

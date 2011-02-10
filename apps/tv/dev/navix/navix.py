@@ -47,15 +47,16 @@ class Module(object):
 
         episodelist = list()
         if len(data) < 1:
-            mc.ShowDialogNotification("1. No episode found for " + str(stream_name))
+            mc.ShowDialogNotification("No supported types found: " + str(stream_name))
             return episodelist
 
         for item in data:
-            if ("type" and "URL" and "thumb") in item.keys():
+            if ("type" and "URL") in item.keys():
                 if item['type'] in self.support.keys():
                     episode = ba.CreateEpisode()
                     episode.SetName(self.support[item['type']] + re.sub("(\[.*?\])", '', item['name']))
-                    episode.SetThumbnails(item['thumb'])
+                    try: episode.SetThumbnails(item['thumb'])
+                    except:episode.SetThumbnails('')
                     try: episode.SetDescription(item['description'])
                     except: """"""
                     if item['type'] == 'playlist':
@@ -69,8 +70,8 @@ class Module(object):
                     episodelist.append(episode)
 
         if len(episodelist) < 1 :
-            mc.ShowDialogNotification("No supported file types found: " + str(stream_name))
-            return
+            mc.ShowDialogNotification("No supported types found: " + str(stream_name))
+            return episodelist
 
         return episodelist
 

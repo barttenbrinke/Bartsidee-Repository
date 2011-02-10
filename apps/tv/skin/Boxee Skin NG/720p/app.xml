@@ -11,7 +11,7 @@ window = mc.GetWindow(14445)
 config = mc.GetApp().GetLocalConfig()
 filter = ''
 genre = ''
-
+mc.GetWindow(14446).ClearStateStack(False)
 main_obj = main.main_obj()
 main_obj.Search_DB_Update(86400)
 if window.GetControl(1200).IsVisible():
