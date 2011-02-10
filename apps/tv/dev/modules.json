@@ -3,7 +3,7 @@
 	"bbc":{"version":1, "path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/", "country":"UK"},
 	"cbc":{"version":1, "path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/", "country":"CA"},
 	"hulu":{"version":1, "path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/", "country":"US"},
-	"navix":{"version":1, "path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/", "country":""},
+	"navix":{"version":2, "path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/", "country":""},
 	"net5":{"version":1, "path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/", "country":"NL"},
 	"nl24":{"version":1, "path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/", "country":"NL"},
 	"sbs6":{"version":1, "path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/", "country":"NL"},
