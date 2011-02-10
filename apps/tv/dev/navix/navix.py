@@ -52,15 +52,14 @@ class Module(object):
 
         for item in data:
             if ("type" and "URL" and "thumb") in item.keys():
-                keys = self.support.keys()
-                if item['type'] in keys:
+                if item['type'] in self.support.keys():
                     episode = ba.CreateEpisode()
                     episode.SetName(self.support[item['type']] + re.sub("(\[.*?\])", '', item['name']))
                     episode.SetThumbnails(item['thumb'])
                     try: episode.SetDescription(item['description'])
                     except: """"""
                     if item['type'] == 'playlist':
-                        episode.SetEpisode("True")
+                        episode.SetEpisode('True')
                         episode.SetId(item['URL'])
                     else:
                         try: episode.SetId(item['URL'] + '|' + item['processor'])
@@ -70,7 +69,7 @@ class Module(object):
                     episodelist.append(episode)
 
         if len(episodelist) < 1 :
-            mc.ShowDialogNotification("No nested playlists supported: " + str(stream_name))
+            mc.ShowDialogNotification("No supported file types found: " + str(stream_name))
             return
 
         return episodelist
