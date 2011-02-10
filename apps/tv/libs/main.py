@@ -8,10 +8,11 @@
 # San Francisco, California 94105, USA.
 #===============================================================================
 
-import mc, os, sys, bz2, binascii, ba, xbmc
+import mc, os, sys, bz2, binascii, ba, xbmc, shutil, urllib
 from time import time, sleep
 from operator import itemgetter
-import thread
+import simplejson as json
+import threading
 
 class main_obj(object):
     ##############################################################################
@@ -24,18 +25,21 @@ class main_obj(object):
         self.settings = {}
         self.search_dynamic = []
         self.db_rm_exclude = ['searchdb', 'settings', 'search_history']
-        self.Settings()
-        self.ImportChannels()
+        self.source = 'https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/modules/'
         self.module_path = os.path.join(mc.GetApp().GetAppDir(), 'modules')
+        sys.path.append(self.module_path)
+
+        self.Settings()
+        self.Check_Modules()
         self.debug = False
         ba.CleanDb(259200, self.db_rm_exclude)
-
+        
     def Settings(self, save=False):
         if save == False:
             if mc.GetApp().GetLocalConfig().GetValue('settings'):
                 self.settings = self.GetFromDB('settings')
             else:
-                self.settings = {'modules_on': [], 'modules_loaded': [], 'subtitle': False, 'clean' : 1}
+                self.settings = {'modules_on': [], 'modules_loaded': [], 'modules_online': [], 'subtitle': False, 'clean' : 1}
         else:
             self.SaveToDB('settings', self.settings)
 
@@ -49,9 +53,6 @@ class main_obj(object):
         ########
         print "BARTSIDEE FRAMEWORK: Settings Loaded."
 
-    def SetChannel(self, module):
-        self.module_obj[module] = self.module[module].Module()
-
     def GetFromDB(self, key):
         data = bz2.decompress(binascii.unhexlify(mc.GetApp().GetLocalConfig().GetValue(key)))
         return ba.Deserialize(data)
@@ -62,29 +63,114 @@ class main_obj(object):
         mc.GetApp().GetLocalConfig().SetValue(key, binascii.hexlify(bz2.compress(data)))
         print 'BARTSIDEE FRAMEWORK: Saved object ' + key +' to database file'
 
-    def ImportChannels(self):
-        self.module_path = os.path.join(mc.GetApp().GetAppDir(), 'modules')
-        sys.path.append(self.module_path)
-        self.settings['modules_loaded'] = []
-        for dirpath, dirnames, filenames in os.walk(self.module_path):
-            for module in dirnames:
-                importstring = module + '.' + module
-                mod = __import__(importstring)
-                components = importstring.split('.')
-                for comp in components[1:]:
-                    mod = getattr(mod, comp)
-                self.module[module] = mod
-                self.SetChannel(module)
-                self.db_rm_exclude.append('searchdb_'+ module)
-                self.settings['modules_loaded'].append(module)
+    ##############################################################################
+    ######   Load Modules
+    ##############################################################################
 
-        print "BARTSIDEE FRAMEWORK: Modules imported."
+    def Check_Modules(self):
+        #Get online modules
+        data = ba.FetchUrl(self.source + 'modules.json')
+        online_data = json.loads(data)
+        self.settings['modules_online'] = online_data
+
+        #Get local modules
+        local_data = {}
+        for dirpath, dirnames, filenames in os.walk(self.module_path):
+            for dir in dirnames:
+                if '-' in dir:
+                    dir = dir.split('-')
+                else:
+                    dir = [dir,0]
+                local_data[dir[0]] = {"version":int(dir[1])}
+
+        #Get load modules
+        self.settings['modules_loaded'] = []
+        modules_load = self.settings['modules_on']
+
+        #Check version
+        for module in modules_load:
+            try:
+                local = local_data[module]['version']
+            except:
+                local = -1
+            try:
+                online = online_data[module]['version']
+            except:
+                online = -1
+            if online > local:
+                url = online_data[module]['path']
+                self.download_module(url, module, online)
+            elif local != online:
+                if local > 0:
+                    shutil.rmtree(os.path.join(self.module_path, module+'-'+str(local)))
+                else:
+                    shutil.rmtree(os.path.join(self.module_path, module))
+            self.ImportModule(module, online)
+
+        #Clean directory
+        for module in local_data.keys():
+            local = local_data[module]['version']
+            online = online_data[module]['version']
+            if module not in online_data.keys() or module not in modules_load:
+                if local > 0:
+                    shutil.rmtree(os.path.join(self.module_path, module+'-'+str(local)))
+                else:
+                    shutil.rmtree(os.path.join(self.module_path, module))
+
+        print 'BARTSIDEE FRAMEWORK: Modules loaded and refreshed'
+
+    def download_module(self, url, name, version):
+        mc.ShowDialogNotification("Downloading module '"+name+"' from the server: Please wait...")
+        dir_path = os.path.join(self.module_path, name+'-'+str(version))
+        img_path = os.path.join(dir_path, name+'.png')
+        py_path = os.path.join(dir_path, name+'.py')
+        py_init = os.path.join(self.module_path, name+'-'+str(version), '__init__.py')
+        img_url = url + name+'/'+name+'.png'
+        py_url = url + name+'/'+name+'.py'
+
+        if not os.path.exists(dir_path):
+            os.makedirs(dir_path)
+
+        url1 = img_path, img_url
+        url2 = py_path, py_url
+        self.fetch_parallel([url1,url2])
+        urllib.urlcleanup()
+
+        tmp = file(py_init, "w")
+        tmp.close()
+
+    def read_url(self, filename, base_url):
+        try:
+            urllib.urlretrieve(base_url,filename)
+        except:
+            print 'BARTSIDEE FRAMEWORK: Error downloading module'
+
+    def fetch_parallel(self, array):
+        threads = [threading.Thread(target=self.read_url, args = (url)) for url in array]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+        return False
+
+    def ImportModule(self, module, version):
+        sys.path.append(self.module_path)
+        importstring = module +'-'+str(version)+ '.' + module
+        mod = __import__(importstring)
+        components = importstring.split('.')
+        for comp in components[1:]:
+            mod = getattr(mod, comp)
+        self.module[module] = mod
+        self.module_obj[module] = self.module[module].Module()
+        self.db_rm_exclude.append('searchdb_'+ module)
+        self.settings['modules_loaded'].append(module)
 
     ##############################################################################
     ######   Module Management
     ##############################################################################
     def List(self, module):
         mc.ShowDialogWait()
+        mc.ShowDialogNotification("Loading module '"+module+"' into the database: Please wait...")
         if self.debug:
             streamlist = self.module_obj[module].List()
         else:
@@ -130,10 +216,11 @@ class main_obj(object):
         list_items = mc.ListItems()
 
         for episode in episodelist:
+            version = self.settings['modules_online'][module]['version']
             list_item = mc.ListItem(mc.ListItem.MEDIA_UNKNOWN)
             list_item.SetLabel(ba.ConvertASCII(episode.name))
             list_item.SetThumbnail(str(episode.thumbnails))
-            list_item.SetProperty('icon', str(os.path.join(self.module_path, module, module + '.png')))
+            list_item.SetProperty('icon', str(os.path.join(self.module_path, module+'-'+str(version), module + '.png')))
             list_item.SetProperty('stream_id', str(stream_id))
             list_item.SetProperty('stream_url', str(binascii.hexlify(episode.id)))
             list_item.SetProperty('module_name', str(self.module_obj[module].name))
@@ -167,10 +254,11 @@ class main_obj(object):
         list_items = mc.ListItems()
         
         for item in genrelist:
+            version = self.settings['modules_online'][module]['version']
             list_item = mc.ListItem(mc.ListItem.MEDIA_UNKNOWN)
             list_item.SetLabel(ba.ConvertASCII(item.name))
             list_item.SetThumbnail(str(item.thumbnails))
-            list_item.SetProperty('icon', str(os.path.join(self.module_path, module, module + '.png')))
+            list_item.SetProperty('icon', str(os.path.join(self.module_path, module+'-'+str(version), module + '.png')))
             list_item.SetProperty('stream_id', str(binascii.hexlify(item.id)))
             list_item.SetProperty('module_name', str(self.module_obj[module].name))
             list_item.SetProperty('date', str(item.date))
@@ -317,9 +405,10 @@ class main_obj(object):
         list_items = mc.ListItems()
 
         for data in search_result:
+            version = self.settings['modules_online'][module]['version']
             list_item = mc.ListItem(mc.ListItem.MEDIA_UNKNOWN)
             list_item.SetLabel(str(data[0]))
-            list_item.SetProperty('icon', str(os.path.join(self.module_path, data[1].module, data[1].module + '.png')))
+            list_item.SetProperty('icon', str(os.path.join(self.module_path, data[1].module+'-'+str(version), data[1].module + '.png')))
             list_item.SetProperty('stream_id', str(binascii.hexlify(data[1].id)))
             list_item.SetProperty('module', str(data[1].module))
             list_item.SetProperty('type', str(data[1].type))
@@ -407,20 +496,24 @@ class main_obj(object):
 
         for module in self.module.keys():
             if module in self.settings['modules_on']:
+                version = self.settings['modules_online'][module]['version']
                 list_item = mc.ListItem(mc.ListItem.MEDIA_UNKNOWN)
                 list_item.SetLabel(str(module))
-                list_item.SetThumbnail(str(os.path.join(self.module_path, module, module + '.png')))
+                list_item.SetThumbnail(str(os.path.join(self.module_path, module+'-'+str(version), module + '.png')))
                 list_items.append(list_item)
         list.SetItems(list_items)
 
     def GetSettings(self):
+        online_data = self.settings['modules_online']
+
         list = mc.GetWindow(14444).GetList(53)
         list_items = mc.ListItems()
 
-        for module in self.module.keys():
+        for module in online_data.keys():
             list_item = mc.ListItem(mc.ListItem.MEDIA_UNKNOWN)
             list_item.SetLabel(str(module))
-            list_item.SetProperty('country', str(self.module_obj[module].country))
+            list_item.SetProperty('country', str(online_data[module]['country']))
+            list_item.SetProperty('logo', str(online_data[module]['path']+module +'/'+module+'.png'))
             if module in self.settings['modules_on']:
                 list_item.SetThumbnail(str('gtk-apply.png'))
             else:

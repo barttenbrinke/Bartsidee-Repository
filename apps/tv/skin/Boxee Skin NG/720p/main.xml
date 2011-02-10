@@ -94,7 +94,7 @@ window.GetControl(1400).SetVisible(False)
 <![CDATA[
 if window.GetControl(1200).IsVisible(): window.GetControl(1201).SetFocus()
 if window.GetControl(1300).IsVisible(): window.GetControl(52).SetFocus()
-if window.GetControl(1400).IsVisible(): window.GetControl(53).SetFocus()
+if window.GetControl(1400).IsVisible(): window.GetControl(54).SetFocus()
 ]]>
 					</ondown>
 				</control>
@@ -145,7 +145,7 @@ window.GetControl(1400).SetVisible(False)
 <![CDATA[
 if window.GetControl(1200).IsVisible(): window.GetControl(1201).SetFocus()
 if window.GetControl(1300).IsVisible(): window.GetControl(52).SetFocus()
-if window.GetControl(1400).IsVisible(): window.GetControl(53).SetFocus()
+if window.GetControl(1400).IsVisible(): window.GetControl(54).SetFocus()
 ]]>
 					</ondown>
 				</control>
@@ -195,7 +195,7 @@ window.GetControl(1400).SetVisible(True)
 <![CDATA[
 if window.GetControl(1200).IsVisible(): window.GetControl(1201).SetFocus()
 if window.GetControl(1300).IsVisible(): window.GetControl(52).SetFocus()
-if window.GetControl(1400).IsVisible(): window.GetControl(53).SetFocus()
+if window.GetControl(1400).IsVisible(): window.GetControl(54).SetFocus()
 ]]>
 					</ondown>
 				</control>
@@ -558,148 +558,29 @@ main_obj.GetApp(module)
 						<label>Settings:</label>
 						<textcolor>ff333333</textcolor>
 			</control>
-			<control type="label">
-						<posx>330</posx>
-						<posy>200</posy>
-						<width>200</width>
-						<height>26</height>
-						<font>font22b</font>
-						<align>left</align>
-						<aligny>center</aligny>
-						<label>Disable modules:</label>
-						<textcolor>white</textcolor>
-			</control>
-			<control type="panel" id="53">
-				<preloaditems>2</preloaditems>
-				<posx>330</posx>
-				<posy>230</posy>
-				<width>600</width>
-				<height>230</height>
-				<onleft>-</onleft>
-				<onright>-</onright>
-				<onup>10103</onup>
-				<ondown>54</ondown>
-				<scrolltime>400</scrolltime>
-				<orientation>vertical</orientation>
-				<offsetx>10</offsetx>
-				<offsety>10</offsety>
 
-				<itemlayout width="500" height="40">
-                    <control type="label">
-						<posx>30</posx>
-						<posy>10</posy>
-						<width>300</width>
-						<height>26</height>
-						<font>font22b</font>
-						<align>left</align>
-						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label]</label>
-						<textcolor>white</textcolor>
-					</control>
-					<control type="label">
-						<posx>380</posx>
-						<posy>10</posy>
-						<width>35</width>
-						<height>26</height>
-						<font>font22b</font>
-						<align>left</align>
-						<aligny>center</aligny>
-						<label>$INFO[ListItem.property(custom:country)]</label>
-						<textcolor>white</textcolor>
-					</control>
-					<control type="image">
-						<posx>430</posx>
-						<posy>4</posy>
-						<width>32</width>
-						<height>32</height>
-						<texture>$INFO[ListItem.Thumb]</texture>
-					</control>
-				</itemlayout>
-
-				<focusedlayout width="500" height="40">
-					<control type="image">
-						 <posx>0</posx>
-						 <posy>0</posy>
-						 <width>500</width>
-						 <height>40</height>
-						 <aspectratio>stretch</aspectratio>
-						 <texture>white_gradient3.png</texture>
-					</control>
-                    <control type="label">
-						<posx>35</posx>
-						<posy>10</posy>
-						<width>300</width>
-						<height>26</height>
-						<font>font22b</font>
-						<align>left</align>
-						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label]</label>
-						<textcolor>ff000000</textcolor>
-					</control>
-					<control type="label">
-						<posx>380</posx>
-						<posy>10</posy>
-						<width>35</width>
-						<height>26</height>
-						<font>font22b</font>
-						<align>left</align>
-						<aligny>center</aligny>
-						<label>$INFO[ListItem.property(custom:country)]</label>
-						<textcolor>ff000000</textcolor>
-					</control>
-					<control type="image">
-						<posx>430</posx>
-						<posy>4</posy>
-						<width>32</width>
-						<height>32</height>
-						<texture>$INFO[ListItem.Thumb]</texture>
-					</control>
-				</focusedlayout>
-				<content type="url" url="">
-					<onclick lang="python">
-<![CDATA[
-mc.ShowDialogWait()
-list = window.GetList(53)
-listitems = list.GetItems()
-listitem = listitems[list.GetFocusedItem()]
-module = listitem.GetLabel()
-if module in main_obj.settings['modules_on']:
-	main_obj.settings['modules_on'].remove(module)
-	main_obj.Search_DB_Remove(module)
-else:
-	main_obj.settings['modules_on'].append(module)
-	main_obj.Search_DB_Add(module)
-main_obj.Settings(True)
-main_obj = main.main_obj()
-main_obj.Search_DB_Update(86400)
-main_obj.GetSettings()
-mc.HideDialogWait()
-]]>
-					</onclick>
-				</content>
-            </control>
 			
 			<control type="label">
 				<posx>330</posx>
-				<posy>470</posy>
+				<posy>200</posy>
 				<width>200</width>
 				<height>26</height>
 				<font>font22b</font>
 				<align>left</align>
 				<aligny>center</aligny>
-				<label>Other:</label>
+				<label>Global:</label>
 				<textcolor>white</textcolor>
 			</control>
 			<control type="panel" id="54">
 				<preloaditems>2</preloaditems>
 				<posx>330</posx>
-				<posy>500</posy>
+				<posy>230</posy>
 				<width>600</width>
 				<height>250</height>
 				<onleft>-</onleft>
 				<onright>-</onright>
-				<onup>53</onup>
-				<ondown>-</ondown>
+				<onup>10103</onup>
+				<ondown>53</ondown>
 				<scrolltime>400</scrolltime>
 				<orientation>vertical</orientation>
 				<offsetx>10</offsetx>
@@ -779,7 +660,143 @@ mc.HideDialogWait()
 					</onclick>
 				</content>
             </control>
+		
+			<control type="label">
+						<posx>330</posx>
+						<posy>360</posy>
+						<width>200</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>Source Modules:</label>
+						<textcolor>white</textcolor>
+			</control>
+			<control type="panel" id="53">
+				<preloaditems>2</preloaditems>
+				<posx>330</posx>
+				<posy>390</posy>
+				<width>620</width>
+				<height>280</height>
+				<onleft>-</onleft>
+				<onright>-</onright>
+				<onup>54</onup>
+				<ondown>53</ondown>
+				<scrolltime>400</scrolltime>
+				<orientation>vertical</orientation>
+				<offsetx>10</offsetx>
+				<offsety>10</offsety>
 
+				<itemlayout width="500" height="40">
+                    <control type="label">
+						<posx>50</posx>
+						<posy>10</posy>
+						<width>300</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+					</control>
+					<control type="largeimage">
+						<posx>2</posx>
+						<posy>2</posy>
+						<width>36</width>
+						<height>36</height>
+						<texture>$INFO[ListItem.property(custom:logo)]</texture>
+					</control>
+					<control type="label">
+						<posx>380</posx>
+						<posy>10</posy>
+						<width>35</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.property(custom:country)]</label>
+						<textcolor>white</textcolor>
+					</control>
+					<control type="image">
+						<posx>430</posx>
+						<posy>4</posy>
+						<width>32</width>
+						<height>32</height>
+						<texture>$INFO[ListItem.Thumb]</texture>
+					</control>
+				</itemlayout>
+
+				<focusedlayout width="500" height="40">
+					<control type="image">
+						 <posx>0</posx>
+						 <posy>0</posy>
+						 <width>500</width>
+						 <height>40</height>
+						 <aspectratio>stretch</aspectratio>
+						 <texture>white_gradient3.png</texture>
+					</control>
+					<control type="largeimage">
+						<posx>2</posx>
+						<posy>2</posy>
+						<width>36</width>
+						<height>36</height>
+						<texture>$INFO[ListItem.property(custom:logo)]</texture>
+					</control>
+                    <control type="label">
+						<posx>50</posx>
+						<posy>10</posy>
+						<width>300</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>ff000000</textcolor>
+					</control>
+					<control type="label">
+						<posx>380</posx>
+						<posy>10</posy>
+						<width>35</width>
+						<height>26</height>
+						<font>font22b</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.property(custom:country)]</label>
+						<textcolor>ff000000</textcolor>
+					</control>
+					<control type="image">
+						<posx>430</posx>
+						<posy>4</posy>
+						<width>32</width>
+						<height>32</height>
+						<texture>$INFO[ListItem.Thumb]</texture>
+					</control>
+				</focusedlayout>
+				<content type="url" url="">
+					<onclick lang="python">
+<![CDATA[
+mc.ShowDialogWait()
+list = window.GetList(53)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+module = listitem.GetLabel()
+if module in main_obj.settings['modules_on']:
+	main_obj.settings['modules_on'].remove(module)
+	main_obj.Check_Modules()
+	main_obj.Search_DB_Remove(module)
+else:
+	main_obj.settings['modules_on'].append(module)
+	main_obj.Check_Modules()
+	main_obj.Search_DB_Add(module)
+main_obj.Settings(True)
+main_obj = main.main_obj()
+main_obj.Search_DB_Update(86400)
+main_obj.GetSettings()
+mc.HideDialogWait()
+]]>
+					</onclick>
+				</content>
+            </control>
         </control>
 		<control type="scrollbar" id="60">
 				<visible>Control.IsVisible(51) + Control.IsVisible(52)</visible>
@@ -796,7 +813,7 @@ mc.HideDialogWait()
 				<showonepage>false</showonepage>
 				<onright>-</onright>
 		</control> 
-		
+	
 		<!-- Debug ->
 		<control type="image">
             <posx>0</posx>

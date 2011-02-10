@@ -259,7 +259,7 @@ class CreateEpisode:
 
 class CreatePlay:
     def __init__(self):
-        self.path = {}
+        self.path = ''
         self.subtitle = ''
         self.subtitle_type = ''
         self.domain = ''
