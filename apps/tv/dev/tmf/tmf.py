@@ -34,7 +34,8 @@ class Module(object):
         return streamlist
 
     def Play(self, stream_name, stream_id, subtitle):
-        url = 'http://media.mtvnservices.com/mgid:nlcms:video:tmf.nl:'+stream_id
+        url = 'http://www.tmf.nl/video/'+stream_id
+        #url = 'http://media.mtvnservices.com/mgid:nlcms:video:tmf.nl:'+stream_id
 
         play = ba.CreatePlay()
         play.SetPath(quote_plus(url))
