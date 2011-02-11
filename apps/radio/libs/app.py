@@ -25,8 +25,8 @@ def ShowNet(net):
         maindiv  = soup.findAll( 'div', {'id' : 'container'})[0]
 
         for info in maindiv.findAll('a', {'class' : re.compile('box(| last)')}):
-            title = info.img['alt']
-            title = re.compile('naar de (.*?) radio', re.DOTALL + re.IGNORECASE).search(str(title)).group(1)
+            try: title = re.compile('om naar (.*?) te luisteren', re.DOTALL + re.IGNORECASE).search(str(info)).group(1)
+            except: title = info['title']
             link = info['href']
             thumb = info.img['src']
             list_item = mc.ListItem(mc.ListItem.MEDIA_UNKNOWN)
@@ -66,15 +66,14 @@ def ShowEpisode(urlshow, title = "", zender = ""):
     if zender == "radio":
         mc.ShowDialogWait()
         data = GetCached(urlshow, 3600).decode('utf-8')
-        urlplay  = re.compile('<PARAM NAME="URL" VALUE="(.*?)">', re.DOTALL + re.IGNORECASE).search(str(data)).group(1)
+        urlplay  = re.compile('<PARAM NAME="URL" VALUE="(.*?)" />', re.DOTALL + re.IGNORECASE).search(str(data)).group(1)
         data = GetCached(urlplay, 3600)
         try:
             urlplay = re.compile('mms\://(.*?)"', re.DOTALL + re.IGNORECASE + re.M).findall(data)[0]
             urlplay = 'mms://' + str(urlplay)
         except:
             urlplay = urlplay
-        if title == "Radio 3FM":
-            urlplay = "http://shoutcast2.omroep.nl:8104"
+        if '3FM' in title: urlplay = "http://shoutcast2.omroep.nl:8104"
         mc.HideDialogWait()
         ShowPlay(urlplay, title)
 
