@@ -1,8 +1,8 @@
 boxee.enableLog(true);
-boxee.autoChoosePlayer=true;
-boxee.renderBrowser=false;
+boxee.autoChoosePlayer=false;
+boxee.renderBrowser=true;
 
-var btn_y1 = 0;
+var btn_y1 = 500;
 var btn_x2 = 20;
 
 hasSet = false;
@@ -22,8 +22,8 @@ _findPlayer = setInterval(function()
          if (widget.getAttribute("id") == 'embeddedPlayer')
          {
             boxee.renderBrowser=false;
-            widget.setCrop(0, 0, 0, 51);
-            boxee.notifyConfigChange(widget.width, widget.height-50);
+            widget.setCrop(81, 76, 81, 76);
+            boxee.notifyConfigChange(widget.width-160, widget.height-150);
             widget.setActive(true);
             boxee.setCanPause(true);
 			hasSet = true;
@@ -35,10 +35,16 @@ _findPlayer = setInterval(function()
 
 boxee.onPause = function()
 {
-	boxee.getActiveWidget().click(btn_x2,btn_y1);
+	boxee.getActiveWidget().mouseMove(btn_x2,btn_y1);
+	setTimeout(function(){
+		boxee.getActiveWidget().click(btn_x2,btn_y1);
+	},100);
 }
 
 boxee.onPlay = function()
 {
-	boxee.getActiveWidget().click(btn_x2,btn_y1);
+	boxee.getActiveWidget().mouseMove(btn_x2,btn_y1);
+	setTimeout(function(){
+		boxee.getActiveWidget().click(btn_x2,btn_y1);
+	},100);
 }
