@@ -25,7 +25,7 @@ class Module(object):
 
         streamlist = list()
         for info in soup.findAll('li'):
-            title = re.compile('--(.*?)$', re.DOTALL + re.IGNORECASE).search(str(info.span.contents[0])[4:]).group(1)
+            title = re.compile('---(.*?)$', re.DOTALL + re.IGNORECASE).search(str(info.span.contents[0])[4:]).group(1)
             id = re.compile('---(.*?)---', re.DOTALL + re.IGNORECASE).search(str(info.span.contents[0])).group(1)
             stream = ba.CreateStream()
             stream.SetName(title)
@@ -47,11 +47,12 @@ class Module(object):
         rendition = soup.find('rendition', {'bitrate':max})
         path = rendition.src.contents[0]
         print path
-        rtmplist = path.split('ondemand/')
-        print rtmplist
+        rtmplist = path.split('ondemand')
+        filepath = rtmplist[1].split('.flv')
+        print filepath
 
         play = ba.CreatePlay()
-        playPath =  rtmplist[1]
+        playPath =  filepath[0]
         rtmpURL = rtmplist[0] + 'ondemand'
         authPath = ''
 
