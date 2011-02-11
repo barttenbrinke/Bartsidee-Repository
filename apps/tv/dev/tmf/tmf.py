@@ -2,7 +2,7 @@ import mc, re, os, sys
 sys.path.append(os.path.join(mc.GetApp().GetAppDir(), 'libs'))
 import ba, md5, time, base64
 from beautifulsoup.BeautifulSoup import BeautifulSoup
-from urllib import quote
+from urllib import quote, quote_plus
 
 class Module(object):
     def __init__(self):
@@ -37,7 +37,7 @@ class Module(object):
         url = 'http://media.mtvnservices.com/mgid:nlcms:video:tmf.nl:'+stream_id
 
         play = ba.CreatePlay()
-        play.SetPath(url)
+        play.SetPath(quote_plus(url))
         play.SetDomain('tmf.nl')
-        play.SetJSactions('http://boxee.bartsidee.nl/apps/tv/tmf.js')
+        play.SetJSactions(quote_plus('http://boxee.bartsidee.nl/apps/tmf.js'))
         return play

@@ -3,14 +3,8 @@ boxee.autoChoosePlayer=true;
 boxee.renderBrowser=False;
 
 var btn_y = 374;
-
 var btn_x1 = 16;
-var btn_x2 = 722;
-var btn_x3 = 560;
 
-var hasActive=false;
-var Rescale=false;
-var Subtitle=false;
 
 if (boxee.getVersion() > 3.0)
 {
@@ -19,17 +13,9 @@ if (boxee.getVersion() > 3.0)
 	boxee.setCanSetVolume(false);
 }
 
-function startPlay()
-{
+setTimeout(function(){
 	boxee.getActiveWidget().click(btn_x1,btn_y);
-	setTimeout(function() {if(Subtitle)
-		{
-			boxee.getActiveWidget().click(btn_x2,btn_y);
-		}
-	}, 10000);
-}
-
-startPlay()
+},1000);
 
 boxee.onPause = function()
 {
