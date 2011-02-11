@@ -22,8 +22,8 @@ _findPlayer = setInterval(function()
          if (widget.getAttribute("id") == 'embeddedPlayer')
          {
             boxee.renderBrowser=false;
-			boxee.setDefaultCrop(81, 76, 81, 76);
-            boxee.notifyConfigChange(widget.width-160, widget.height-150);
+            widget.setCrop(81, 71, 81, 71);
+            boxee.notifyConfigChange(widget.width-160, widget.height-140);
             widget.setActive(true);
             boxee.setCanPause(true);
 			hasSet = true;

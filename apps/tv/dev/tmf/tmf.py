@@ -7,7 +7,7 @@ from urllib import quote, quote_plus
 class Module(object):
     def __init__(self):
         self.name = "TMF Music"                   #Name of the channel
-        self.type = ['search']                      #Choose between 'search', 'list', 'genre'
+        self.type = ['search', 'genre']                      #Choose between 'search', 'list', 'genre'
         self.episode = False                         #True if the list has episodes
         self.filter = []                            #Option to set a filter to the list
         self.genrelist = {'Nieuw':'Z2VucmU9bmlldXcmbT12aWRlby9nZW5yZVRhYnM=', 'Pop':'Z2VucmU9cG9wJm09dmlkZW8vZ2VucmVUYWJz', 'Rock':'Z2VucmU9cm9jayAvIGFsdGVybmF0aXZlJm09dmlkZW8vZ2VucmVUYWJz', 'Dance':'Z2VucmU9ZGFuY2UmbT12aWRlby9nZW5yZVRhYnM=', 'Urban':'Z2VucmU9dXJiYW4mbT12aWRlby9nZW5yZVRhYnM=', 'Nl':'Z2VucmU9bmwmbT12aWRlby9nZW5yZVRhYnM='}
