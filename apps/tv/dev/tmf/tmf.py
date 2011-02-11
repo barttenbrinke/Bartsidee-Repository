@@ -37,7 +37,7 @@ class Module(object):
         url = 'http://media.mtvnservices.com/mgid:nlcms:video:tmf.nl:'+stream_id
 
         play = ba.CreatePlay()
-        play.SetPath(stream_id)
+        play.SetPath(url)
         play.SetDomain('tmf.nl')
         play.SetJSactions('http://boxee.bartsidee.nl/apps/tv/tmf.js')
         return play
