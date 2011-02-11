@@ -34,29 +34,10 @@ class Module(object):
         return streamlist
 
     def Play(self, stream_name, stream_id, subtitle):
-        url = 'http://www.tmf.nl/xml/videoplayer/mediaGen.php?id='+stream_id
-        data = ba.FetchUrl(url)
-        soup = BeautifulSoup(data, convertEntities="xml", smartQuotesTo="xml")
-
-        bitrate = []
-        for info in soup.findAll('rendition', {'bitrate':True}):
-            bitrate.append(int(info['bitrate']))
-        bitrate.sort()
-        max = str(bitrate[-1])
-
-        rendition = soup.find('rendition', {'bitrate':max})
-        path = rendition.src.contents[0]
-        print path
-        rtmplist = path.split('ondemand/')
-        filepath = rtmplist[1].split('.flv')
-        print filepath
+        url = 'http://media.mtvnservices.com/mgid:nlcms:video:tmf.nl:'+stream_id
 
         play = ba.CreatePlay()
-        playPath =  filepath[0]
-        rtmpURL = rtmplist[0] + 'ondemand'
-        authPath = ''
-
-        play.SetRTMPPath(playPath)
-        play.SetRTMPDomain(rtmpURL)
-        play.SetRTMPAuth(authPath)
+        play.SetPath(stream_id)
+        play.SetDomain('tmf.nl')
+        play.SetJSactions('http://boxee.bartsidee.nl/apps/tv/tmf.js')
         return play

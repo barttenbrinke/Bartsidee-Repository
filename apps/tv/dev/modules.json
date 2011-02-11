@@ -13,5 +13,5 @@
 	"youtube":{"version":1, "path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/", "country":""},
 	"zdf":{"version":1, "path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/", "country":"DE"},
 	"tvnz":{"version":1, "path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/", "country":"NZ"},
-	"tmf":{"version":4, "path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/", "country":"NL"}
+	"tmf":{"version":5, "path":"https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/", "country":"NL"}
 }
