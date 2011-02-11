@@ -47,7 +47,7 @@ class Module(object):
         rendition = soup.find('rendition', {'bitrate':max})
         path = rendition.src.contents[0]
         print path
-        rtmplist = path.split('ondemand')
+        rtmplist = path.split('ondemand/')
         filepath = rtmplist[1].split('.flv')
         print filepath
 
