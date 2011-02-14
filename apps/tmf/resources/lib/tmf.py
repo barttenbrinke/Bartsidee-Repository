@@ -31,7 +31,7 @@ def doAction(action, label, episode="", season="", desc="", thumb=""):
                 url = TMF_BASE_URL + '/video/' + action[3] + '/'
                 params = urllib.urlencode({'src':  url})
                 list_item       = mc.ListItem(mc.ListItem.MEDIA_VIDEO_CLIP)
-                path = 'flash://%s/src=%s&bx-jsactions=%s' % ("tmf.nl", quote(url), quote('http://boxee.ikbenjaap.com/uzg/tmf.js'))
+                path = 'flash://%s/src=%s&bx-jsactions=%s' % ("tmf.nl", quote(url), quote('http://boxee.bartsidee.nl/apps/js/tmf.js'))
                 list_item.SetPath(path)
                 list_item.SetReportToServer(True)
                 list_item.SetAddToHistory(True)

@@ -48,6 +48,6 @@ class Module(object):
         play = ba.CreatePlay()
         play.SetPath(url)
         play.SetDomain('www.cbc.ca')
-        play.SetJSactions('http://www.bartsidee.nl/boxee/apps/cbc.js')
+        play.SetJSactions('http://www.bartsidee.nl/boxee/apps/js/cbc.js')
 
         return play

@@ -26,12 +26,11 @@ class main_obj(object):
         self.search_dynamic = []
         self.db_rm_exclude = ['searchdb', 'settings', 'search_history']
         self.source = 'http://boxee.bartsidee.nl/apps/tv/modules/'
-        self.source_dev = 'https://github.com/bartsidee/Bartsidee-Repository/raw/master/apps/tv/dev/'
-        self.module_path = os.path.join(mc.GetTempDir(), 'bartsideetv')
+        self.module_path = os.path.join(mc.GetApp().GetAppDir(), 'modules')
         if not os.path.exists(self.module_path): os.makedirs(self.module_path)
         sys.path.append(self.module_path)
 
-        self.version = "0.89"
+        self.version = "0.90"
         self.debug = False
         self.Settings()
         self.Check_Modules()
@@ -73,13 +72,10 @@ class main_obj(object):
     def Check_Modules(self):
         mc.ShowDialogWait()
         #Get online modules
-        if self.debug:
-            data = ba.FetchUrl(self.source_dev + 'modules.json')
-            print "BARTSIDEE FRAMEWORK: Using dev source"
-        else:
-            data = ba.FetchUrl(self.source + 'modules.json')
-        online_data = json.loads(data)
-        self.settings['modules_online'] = online_data
+        if not self.debug:
+            data = ba.FetchUrl(self.source + 'modules.json', 3600)
+            online_data = json.loads(data)
+            self.settings['modules_online'] = online_data
 
         #Get local modules
         local_data = {}
@@ -89,9 +85,12 @@ class main_obj(object):
                     dir = dir.split('-')
                 else:
                     dir = [dir,0]
-                local_data[dir[0]] = {"version":int(dir[1])}
+                local_data[dir[0]] = {"version":int(dir[1]),"path":self.module_path}
 
         #Get load modules
+        if self.debug:
+            self.settings['modules_online'] = local_data
+            online_data = local_data
         self.settings['modules_loaded'] = []
         modules_load = self.settings['modules_on']
 
@@ -119,16 +118,21 @@ class main_obj(object):
                 url = online_data[module]['path']
                 self.download_module(url, module, online)
 
-            if remove: self.remove_module(module, local)
+            if remove:
+                try:
+                    self.remove_module(module, local)
+                    local_data.remove(module)
+                except: "Error when trying to remove module"
             if load: self.ImportModule(module, online)
 
         #Clean directory
-        for module in local_data.keys():
-            if module in local_data.keys():
-                try: local = local_data[module]['version']
-                except: local = -1
-            if module not in online_data.keys() or module not in modules_load:
-                self.remove_module(module, local)
+        if not self.debug:
+            for module in local_data.keys():
+                if module in local_data.keys():
+                    try: local = local_data[module]['version']
+                    except: local = -1
+                if module not in online_data.keys() or module not in modules_load:
+                    self.remove_module(module, local)
 
         self.Settings(True)
         mc.HideDialogWait()
@@ -550,7 +554,8 @@ class main_obj(object):
         for module in online_data.keys():
             list_item = mc.ListItem(mc.ListItem.MEDIA_UNKNOWN)
             list_item.SetLabel(str(module))
-            list_item.SetProperty('country', str(online_data[module]['country']))
+            if self.debug: list_item.SetProperty('country', str("DB"))
+            else: list_item.SetProperty('country', str(online_data[module]['country']))
             list_item.SetProperty('logo', str(online_data[module]['path']+module +'/'+module+'.png'))
             if module in self.settings['modules_on']:
                 list_item.SetThumbnail(str('gtk-apply.png'))

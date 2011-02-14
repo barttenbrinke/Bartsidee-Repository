@@ -76,6 +76,6 @@ class Module(object):
         play = ba.CreatePlay()
         play.SetPath(quote_plus(url))
         play.SetDomain('bartsidee.nl')
-        play.SetJSactions(quote_plus('http://bartsidee.nl/boxee/apps/flow.js'))
+        play.SetJSactions(quote_plus('http://bartsidee.nl/boxee/apps/js/flow.js'))
 
         return play

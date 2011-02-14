@@ -68,5 +68,5 @@ class Module(object):
         play = ba.CreatePlay()
         play.SetPath(quote_plus(url))
         play.SetDomain('tmf.nl')
-        play.SetJSactions(quote_plus('http://boxee.bartsidee.nl/apps/tmf.js'))
+        play.SetJSactions(quote_plus('http://boxee.bartsidee.nl/apps/js/tmf.js'))
         return play

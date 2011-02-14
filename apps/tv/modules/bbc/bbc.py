@@ -146,12 +146,12 @@ class Module(object):
             play = ba.CreatePlay()
             play.SetPath(quote_plus(url))
             play.SetDomain('bbc.co.uk')
-            play.SetJSactions(quote_plus('http://bartsidee.nl/boxee/apps/bbc1.js'))
+            play.SetJSactions(quote_plus('http://bartsidee.nl/boxee/apps/js/bbc1.js'))
         else:
             play = ba.CreatePlay()
             play.SetPath(quote_plus(url))
             play.SetDomain('bbc.co.uk')
-            play.SetJSactions(quote_plus('http://bartsidee.nl/boxee/apps/bbc0.js'))
+            play.SetJSactions(quote_plus('http://bartsidee.nl/boxee/apps/js/bbc0.js'))
 
         return play
 

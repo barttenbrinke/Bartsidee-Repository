@@ -1,6 +1,6 @@
 boxee.enableLog(true);
 boxee.autoChoosePlayer=false;
-boxee.renderBrowser=true;
+boxee.renderBrowser=false;
 
 var btn_y1 = 500;
 var btn_x2 = 20;

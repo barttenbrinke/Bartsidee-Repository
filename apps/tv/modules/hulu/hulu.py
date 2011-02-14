@@ -105,7 +105,7 @@ class Module(object):
         play = ba.CreatePlay()
         play.SetPath(quote_plus(path))
         play.SetDomain('bartsidee.nl')
-        play.SetJSactions(quote_plus('http://bartsidee.nl/boxee/apps/hulu.js'))
+        play.SetJSactions(quote_plus('http://bartsidee.nl/boxee/apps/js/hulu.js'))
         return play
 
     def tinyurl(self, params):

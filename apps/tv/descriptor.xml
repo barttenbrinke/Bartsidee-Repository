@@ -1,11 +1,11 @@
 	<app>
 		<id>com.bart.tv</id>
 		<name>Bartsidee TV</name>
-		<version>0.89</version>
+		<version>0.90</version>
 		<description>Modular framework to watch tv episodes and more!</description>
-		<thumb>http://www.bartsidee.nl/boxee/apps/tv/thumb.png</thumb>
+		<thumb>http://boxee.bartsidee.nl/apps/tv/thumb.png</thumb>
 		<repositoryid>com.bart</repositoryid>
-		<repository>http://www.bartsidee.nl/boxee</repository>
+		<repository>http://boxee.bartsidee.nl/</repository>
 		<media>video</media>
 		<copyright>bartsidee</copyright>
 		<email>bartsidee@gmail.com</email>
