@@ -4,7 +4,7 @@ boxee.earlyTimers = true;
 boxee.enableLog(true);
 
 boxee.onInit = function() {
-   //browser.setConfigChar('general.useragent.override','Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.0.1) Gecko/200807820');
+   browser.setConfigChar('general.useragent.override','Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.0.1) Gecko/200807820');
 }
 
 if (boxee.getVersion() < 5)

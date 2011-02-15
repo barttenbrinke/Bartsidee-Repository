@@ -30,7 +30,7 @@ class main_obj(object):
         if not os.path.exists(self.module_path): os.makedirs(self.module_path)
         sys.path.append(self.module_path)
 
-        self.version = "0.90"
+        self.version = "0.91"
         self.debug = False
         self.Settings()
         self.Check_Modules()
@@ -194,7 +194,20 @@ class main_obj(object):
     def ImportModule(self, module, version):
         sys.path.append(self.module_path)
         importstring = module +'-'+str(version)+ '.' + module
-        try:
+        if not self.debug:
+            try:
+                mod = __import__(importstring)
+                components = importstring.split('.')
+                for comp in components[1:]:
+                    mod = getattr(mod, comp)
+                self.module[module] = mod
+                self.module_obj[module] = self.module[module].Module()
+                self.db_rm_exclude.append('searchdb_'+ module)
+                self.settings['modules_loaded'].append(module)
+            except:
+                self.remove_module(module, version)
+                self.Check_Modules()
+        else:
             mod = __import__(importstring)
             components = importstring.split('.')
             for comp in components[1:]:
@@ -203,9 +216,6 @@ class main_obj(object):
             self.module_obj[module] = self.module[module].Module()
             self.db_rm_exclude.append('searchdb_'+ module)
             self.settings['modules_loaded'].append(module)
-        except:
-            self.remove_module(module, version)
-            self.Check_Modules()
 
     ##############################################################################
     ######   Module Management
@@ -328,7 +338,7 @@ class main_obj(object):
                 play = self.module_obj[module].Play(stream_name, binascii.unhexlify(stream_id), self.settings['subtitle'])
             except:
                 return
-        if str(play.path) == '':
+        if str(play.path) == '' and str(play.rtmpdomain) == '':
             return
         
         content_type = self.module_obj[module].content_type
@@ -338,12 +348,13 @@ class main_obj(object):
         if content_type == "video/x-flv":
             player = mc.GetPlayer()
             list_item = mc.ListItem(mc.ListItem.MEDIA_VIDEO_CLIP)
-
             if play.rtmpdomain != '':
                 list_item.SetPath(str(play.rtmpdomain))
                 list_item.SetProperty("PageURL", str(play.rtmpdomain))
                 list_item.SetProperty("PlayPath", str(play.rtmppath))
                 list_item.SetProperty("TcUrl", str(play.rtmpauth))
+                list_item.SetProperty("SWFPlayer", str(play.rtmpswf))
+
             else:
                 if play.jsactions == '':
                     path = 'flash://' + str(play.domain) + '/src=' + str(play.path)

@@ -1,7 +1,7 @@
 	<app>
 		<id>com.bart.tv</id>
 		<name>Bartsidee TV</name>
-		<version>0.90</version>
+		<version>0.91</version>
 		<description>Modular framework to watch tv episodes and more!</description>
 		<thumb>http://boxee.bartsidee.nl/apps/tv/thumb.png</thumb>
 		<repositoryid>com.bart</repositoryid>

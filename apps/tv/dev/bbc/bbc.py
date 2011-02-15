@@ -87,51 +87,61 @@ class Module(object):
 
         id = re.compile('episode\/(.*?)\/', re.DOTALL + re.IGNORECASE).search(str(stream_id)).group(1)
         url = self.url_base + '/iplayer/episode/' + id + '/'
-        #data = ba.FetchUrl(stream_id)
-        #pid = re.compile('ep.setVersionPid\("(.*?)"\)', re.DOTALL + re.IGNORECASE).search(str(data)).group(1)
+        data = ba.FetchUrl(stream_id)
+        pid = re.compile('ep.setVersionPid\("(.*?)"\)', re.DOTALL + re.IGNORECASE).search(str(data)).group(1)
         
-        #surl = 'http://www.bbc.co.uk/mediaselector/4/mtis/stream/' + pid
-        #bitrate = []
-        #data = ba.FetchUrl(surl)
-        #soup = BeautifulSoup(data, convertEntities="xml", smartQuotesTo="xml")
-        #for info in soup.findAll('media', {'bitrate':True}):
-        #   bitrate.append(int(info['bitrate']))
-        #bitrate.sort()
-        #max = str(bitrate[-1])
-        
-        #media = soup.find('media', {'bitrate':max})
-        #print media
-        #connection = media.find('connection', {'supplier':'akamai'})
-        #if not connection: connection = media.find('connection', {'supplier':'limelight'})
+        surl = 'http://www.bbc.co.uk/mediaselector/4/mtis/stream/' + pid
+        bitrate = []
+        data = ba.FetchUrl(surl)
+        soup = BeautifulSoup(data, convertEntities="xml", smartQuotesTo="xml")
+        for info in soup.findAll('media', {'bitrate':True}):
+           bitrate.append(int(info['bitrate']))
+        bitrate.sort()
+        max = str(bitrate[-1])
+    
+        media = soup.find('media', {'bitrate':max})
+        print media
+        connection = media.find('connection', {'supplier':'akamai'})
+        if not connection: connection = media.find('connection', {'supplier':'limelight'})
 
-        #identifier  = connection['identifier']
-        #server      = connection['server']
-        #supplier    = connection['supplier']
-        #try:
-        #    auth    = connection['authString']
-        #except:
-        #    auth    = connection['authstring']
+        identifier  = connection['identifier']
+        server      = connection['server']
+        supplier    = connection['supplier']
+        try:
+            auth    = connection['authString']
+        except:
+            auth    = connection['authstring']
 
-        #try:
-        #    application = connection['application']
-        #except:
-        #    application = 'live'
+        try:
+            application = connection['application']
+        except:
+            application = 'live'
 
         #if subtitle:
         #    sub_url = soup.find('media', {'kind':'captions'})
         #    sub_url = sub_url.connection['href']
 
-        #timeout = 600
-        #swfplayer = 'http://www.bbc.co.uk/emp/10player.swf'
+        timeout = 600
+        swfplayer = 'http://www.bbc.co.uk/emp/10player.swf'
         #params = dict(protocol = "rtmp", port = "1935", server = server, auth = auth, ident = identifier, app = application)
 
         #if supplier == "akamai":
         #    url = "%(protocol)s://%(server)s:%(port)s/%(app)s?%(auth)s playpath=%(ident)s" % params
-        #elif supplier == 'limelight':
-            # note that librtmp has a small issue with constructing the tcurl here. we construct it ourselves for now (fixed in later librtmp)
+        #if supplier == "akamai":
+        # note that librtmp has a small issue with constructing the tcurl here. we construct it ourselves for now (fixed in later librtmp)
         #    url = "%(protocol)s://%(server)s:%(port)s/ app=%(app)s?%(auth)s tcurl=%(protocol)s://%(server)s:%(port)s/%(app)s?%(auth)s playpath=%(ident)s" % params
 
         #    url += " swfurl=%s swfvfy=true timeout=%s" % (swfplayer, timeout)
+
+        play = ba.CreatePlay()
+        play.SetRTMPPath(identifier)
+        if supplier == "akamai":
+            play.SetRTMPDomain('rtmp://'+server+'/'+application)
+            play.SetRTMPAuth('rtmp://'+server+'/'+application +'?'+ auth)
+        elif supplier == "limelight":
+            play.SetRTMPDomain('rtmp://'+server)
+            play.SetRTMPAuth('rtmp://'+server+'/'+application +'?'+ auth)
+        play.SetRTMPSwf(swfplayer)
 
         #play.SetPath(url)
 
@@ -142,16 +152,16 @@ class Module(object):
         #play.SetDomain('bartsidee.nl')
         #play.SetJSactions(quote_plus('http://bartsidee.nl/boxee/apps/flow.js'))
 
-        if subtitle:
-            play = ba.CreatePlay()
-            play.SetPath(quote_plus(url))
-            play.SetDomain('bbc.co.uk')
-            play.SetJSactions(quote_plus('http://bartsidee.nl/boxee/apps/bbc1.js'))
-        else:
-            play = ba.CreatePlay()
-            play.SetPath(quote_plus(url))
-            play.SetDomain('bbc.co.uk')
-            play.SetJSactions(quote_plus('http://bartsidee.nl/boxee/apps/bbc0.js'))
+        #if subtitle:
+        #    play = ba.CreatePlay()
+        #    play.SetPath(quote_plus(url))
+        #    play.SetDomain('bbc.co.uk')
+        #    play.SetJSactions(quote_plus('http://bartsidee.nl/boxee/apps/js/bbc1.js'))
+        #else:
+        #    play = ba.CreatePlay()
+        #    play.SetPath(quote_plus(url))
+        #    play.SetDomain('bbc.co.uk')
+        #    play.SetJSactions(quote_plus('http://bartsidee.nl/boxee/apps/js/bbc0.js'))
 
         return play
 
