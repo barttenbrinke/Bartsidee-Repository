@@ -194,20 +194,7 @@ class main_obj(object):
     def ImportModule(self, module, version):
         sys.path.append(self.module_path)
         importstring = module +'-'+str(version)+ '.' + module
-        if not self.debug:
-            try:
-                mod = __import__(importstring)
-                components = importstring.split('.')
-                for comp in components[1:]:
-                    mod = getattr(mod, comp)
-                self.module[module] = mod
-                self.module_obj[module] = self.module[module].Module()
-                self.db_rm_exclude.append('searchdb_'+ module)
-                self.settings['modules_loaded'].append(module)
-            except:
-                self.remove_module(module, version)
-                self.Check_Modules()
-        else:
+        try:
             mod = __import__(importstring)
             components = importstring.split('.')
             for comp in components[1:]:
@@ -216,6 +203,10 @@ class main_obj(object):
             self.module_obj[module] = self.module[module].Module()
             self.db_rm_exclude.append('searchdb_'+ module)
             self.settings['modules_loaded'].append(module)
+        except:
+            if not self.debug:
+                self.remove_module(module, version)
+                self.Check_Modules()
 
     ##############################################################################
     ######   Module Management
