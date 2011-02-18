@@ -12,6 +12,6 @@
 	"veronica":{"version":1, "path":"http://boxee.bartsidee.nl/apps/tv/modules/", "country":"NL"},
 	"youtube":{"version":1, "path":"http://boxee.bartsidee.nl/apps/tv/modules/", "country":""},
 	"zdf":{"version":1, "path":"http://boxee.bartsidee.nl/apps/tv/modules/", "country":"DE"},
-	"tmf":{"version":2, "path":"http://boxee.bartsidee.nl/apps/tv/modules/", "country":"NL"}.
+	"tmf":{"version":2, "path":"http://boxee.bartsidee.nl/apps/tv/modules/", "country":"NL"},
 	"itv":{"version":1, "path":"http://boxee.bartsidee.nl/apps/tv/modules/", "country":"UK"}
 }
